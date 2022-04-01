@@ -3,6 +3,7 @@ import './bootstrapcustom.css';
 import './img/user.png';
 import "./img/money.png"
 import './style.css';
+import blockies from "ethereum-blockies";
 
 
 export default function Fund(){
@@ -13,7 +14,18 @@ export default function Fund(){
             console.log(account_now)
             if (account_now){
                 login_status = 1;
+                var icon = blockies.create({ // All options are optional
+                    seed: account_now, // seed used to generate icon data, default: random
+                    color: '#ffe', // to manually specify the icon color, default: random
+                    bgcolor: '#bbb', // choose a different background color, default: random
+                    size: 6, // width/height of the icon in blocks, default: 8
+                    scale: 3, // width/height of each block in pixels, default: 4
+                    spotcolor: '#000' // each pixel has a 13% chance of being of a third color, 
+                    // default: random. Set to -1 to disable it. These "spots" create structures
+                    // that look like eyes, mouths and noses. 
+                });
                 document.getElementById('login_status').innerHTML = account_now.substring(0,6)+'...'+account_now.substring(38);
+                document.getElementById('login_status').appendChild(icon);
             }
         }catch(e){
         }

@@ -1,9 +1,72 @@
 import React from "react";
 import './bootstrapcustom.css';
 import './style.css';
-
+import { ethers } from "ethers";
+import $ from 'jquery';
+import click from 'jquery';
 
 export default function Account(){
+    var login_status = 0;
+    var account;
+    window.onload = async function(){
+        try{
+            let account_now = await window.ethereum.selectedAddress;
+            console.log(account_now)
+            if (account_now){
+                login_status = 1;
+                document.getElementById('login_status').innerHTML = account_now.substring(0,6)+'...'+account_now.substring(38);
+            }
+        }catch(e){
+        }
+    }
+    async function ClickHandler_Fund(){
+        if (typeof window.ethereum !== 'undefined') {
+            if (login_status == 0){
+                alert("Please login first.");
+            } else {
+                window.location.href="fund.html"
+            }
+        }else{
+            alert("Please install MetaMask!");
+        }
+    }
+    function getWeb3Provider() {
+        if (!window.web3Provider) {
+            if (!window.ethereum) {
+                console.error("there is no web3 provider.");
+                return null;
+            }
+            window.web3Provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        }
+        return window.web3Provider;
+    }
+    async function Login(){
+        if (getWeb3Provider() === null) {
+            console.error('there is no web3 provider.');
+            return false;
+        }
+        try {
+            // 获取当前连接的账户地址:
+            account = await window.ethereum.request({
+                method: 'eth_requestAccounts',
+            });
+            // 获取当前连接的链ID:
+            let chainId = await window.ethereum.request({
+                method: 'eth_chainId'
+            });
+            alert(account[0]);
+            login_status = 1;
+            document.getElementById('login_status').innerHTML = account[0].substring(0,6)+'...'+account[0].substring(38);
+        } catch (e) {
+            console.error('could not get a wallet connection.', e);
+            return false;
+        }
+    }
+    function changeContent(){
+        var o = document.getElementById("content");
+        var c = o.innerHTML;
+        o.innerHTML = "<input type='text' value='" + c + "'/>"
+       }
     return (
         <React.Fragment>
             <title>Investor</title>
@@ -16,8 +79,8 @@ export default function Account(){
                     <div class="collapse navbar-collapse" id="navmenu">
                         <ul class="navbar-nav ms-auto"> 
                             <li class="nav-item"><a href="investor.html" class="nav-link">Invest</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">Fundraise</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">Logout</a></li>
+                            <li class="nav-item" onClick={ClickHandler_Fund}><a class="nav-link">Fundraise</a></li>
+                            <li class="nav-item" onClick={Login}><a class="nav-link" id="login_status">Login</a></li>
                         </ul>
                     </div>
                 </div>
@@ -44,9 +107,9 @@ export default function Account(){
                             <div class="card bg-light text-dark">
                                 <div class="card-body">
                                     <h5 class="card-title">Progress</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus optio libero aliquid? Laborum quidem autem corporis officia possimus magnam ipsa minima mollitia, dolor reiciendis architecto, quod ea modi consequuntur voluptas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus optio libero aliquid? Laborum quidem autem corporis officia possimus magnam ipsa minima mollitia, dolor reiciendis architecto, quod ea modi consequuntur voluptas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus optio libero aliquid? Laborum quidem autem corporis officia possimus magnam ipsa minima mollitia, dolor reiciendis architecto, quod ea modi consequuntur voluptas.</p>
+                                    <span id="content">Progress</span>
                                     <div class="text-end">
-                                        <a href="#" class="btn btn-primary text-center">Edit</a>
+                                        <input id="changeContent" type="button" value="Edit" onClick={changeContent()}/>
                                     </div>
                                 </div>
                             </div>

@@ -6,6 +6,18 @@ import './style.css';
 
 
 export default function Fund(){
+    var login_status = 0;
+    window.onload = async function(){
+        try{
+            let account_now = await window.ethereum.selectedAddress;
+            console.log(account_now)
+            if (account_now){
+                login_status = 1;
+                document.getElementById('login_status').innerHTML = account_now.substring(0,6)+'...'+account_now.substring(38);
+            }
+        }catch(e){
+        }
+    }
     return (
         <React.Fragment>
             <title>Investor</title>
@@ -17,7 +29,7 @@ export default function Fund(){
                     </button>
                     <div class="collapse navbar-collapse" id="navmenu">
                         <ul class="navbar-nav ms-auto"> 
-                            <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link" id="login_status">Login</a></li>
                         </ul>
                     </div>
                 </div>

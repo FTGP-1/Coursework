@@ -20,8 +20,6 @@ export default function Account(){
             }
         }catch(e){
         }
-    }
-    window.onload = function(){
         for(var a = 0;a< btns.length;a++){
 			btns[a].index = a;
 			$(btns[a]).click(function() {

@@ -138,5 +138,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "jQuery": "^1.7.4"
   }
 }

@@ -2,9 +2,9 @@ import React from "react";
 import './bootstrapcustom.css';
 import './style.css';
 import { ethers } from "ethers";
-import $ from 'jquery';
-import click from 'jquery';
+import $ from 'jquery';  
 import blockies from "ethereum-blockies";
+import MetaTags from 'react-meta-tags';
 
 export default function Account(){
     var login_status = 0;
@@ -101,7 +101,13 @@ export default function Account(){
     }
     return (
         <React.Fragment>
-            <title>Investor</title>
+            <MetaTags>
+                <title>Investor</title>
+                <meta charset="UTF-8"/>
+                <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            </MetaTags>
+            <body>
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark"> 
                 <div class="container">
                     <a href="homepage.html" class="navbar-brand">Company's name</a>
@@ -150,6 +156,8 @@ export default function Account(){
                 </div>
             </div>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        </body>
         </React.Fragment>
     );
     

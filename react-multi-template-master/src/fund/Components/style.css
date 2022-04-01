@@ -237,3 +237,13 @@ section.copy p {
 .google-map {
   padding-top: 60px;
 }
+
+
+.imgsize{
+  height: 40px;
+  width: 40px
+}
+
+.topPadding{
+  padding-top:63px;
+}

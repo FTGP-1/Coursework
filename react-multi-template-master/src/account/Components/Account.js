@@ -22,26 +22,34 @@ export default function Account(){
                     </div>
                 </div>
             </nav>
+
             <div class="section-bg-2 text-light text-center text-sm-start">
                 <div class="container">
                     <div class="row g-5">
-                        <div class="col">
-                            <h3 class="my-4">Pie Chart</h3>
-                            <div class="container">
-
+                        <div class="col-lg-6">
+                            
+                            <div class="center">
+                                <img src={require("./img/piechart.png")} alt="statistics" class="carousel-inner img-responsive img-roundede"/>
                             </div>
-                            <p class="my-4"> 
+                            <p class="mt-4"> 
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus optio libero aliquid? Laborum quidem autem corporis officia possimus magnam ipsa minima mollitia, dolor reiciendis architecto, quod ea modi consequuntur voluptas.
                             </p>
                         </div>
-                        <div class="col">
-                            <h3 class="my-4">Progress</h3>
-                            <div class="container">
-
+                        <div class="col-lg-6">
+                            
+                            <div class="d-flex align-items-center bg-light text-dark mb-4">
+                                <img src={require("./img/money.png")} alt="statistics" class="imgsize my-4"/>
+                                <h3 class="mx-4 my-2">Ticker's name</h3>
                             </div>
-                            <p class="my-4">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel voluptas laboriosam porro fuga omnis ipsam. At praesentium facere odit quod corrupti. Nihil, accusamus facere! Adipisci nesciunt delectus placeat temporibus amet?
-                            </p>
+                            <div class="card bg-light text-dark">
+                                <div class="card-body">
+                                    <h5 class="card-title">Progress</h5>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus optio libero aliquid? Laborum quidem autem corporis officia possimus magnam ipsa minima mollitia, dolor reiciendis architecto, quod ea modi consequuntur voluptas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus optio libero aliquid? Laborum quidem autem corporis officia possimus magnam ipsa minima mollitia, dolor reiciendis architecto, quod ea modi consequuntur voluptas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus optio libero aliquid? Laborum quidem autem corporis officia possimus magnam ipsa minima mollitia, dolor reiciendis architecto, quod ea modi consequuntur voluptas.</p>
+                                    <div class="text-end">
+                                        <a href="#" class="btn btn-primary text-center">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>            
                 </div>

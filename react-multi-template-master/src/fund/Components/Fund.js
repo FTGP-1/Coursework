@@ -1,6 +1,7 @@
 import React from "react";
 import './bootstrapcustom.css';
 import './img/user.png';
+import "./img/money.png"
 import './style.css';
 
 
@@ -16,9 +17,7 @@ export default function Fund(){
                     </button>
                     <div class="collapse navbar-collapse" id="navmenu">
                         <ul class="navbar-nav ms-auto"> 
-                            <li class="nav-item"><a href="investor.html" class="nav-link">Invest</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">Fundraise</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">Logout</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
                         </ul>
                     </div>
                 </div>
@@ -56,63 +55,16 @@ export default function Fund(){
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="card bg-dark text-light">
-                                <div class="card-body">
-                                    <div class="card-title text-center">
-                                        <h3 class="my-4">Strategy A</h3>
+                        <div class="col-md-5">
+                            <div class="container my-4">
+                                <div class="d-flex align-items-center topPadding">
+                                    <div class="flex-shrink-0 mx-3">
+                                        <img src={require("./img/money.png")} alt="logo" class="imgsize"/>
                                     </div>
-                                    <div class="card-text text-center">
-                                        <p class="my-4 mx-4">
-                                            Introduction
-                                        </p>
-                                        <p class="my-4 mx-4">
-                                            Money
-                                        </p>
-                                    </div>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-primary">Confirm</a>
-                                    </div>
+                                <div class="flex-grow-1 input-group mb-3 mx-2 my-3 col-md-4 inputButton">
+                                    <input type="text" class="form-control" placeholder="Please input the amount" aria-label="amount" aria-describedby="button-addon2"></input>
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buy</button>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="card bg-secondary text-light">
-                                <div class="card-body">
-                                    <div class="card-title text-center">
-                                        <h3 class="my-4">Strategy B</h3>
-                                    </div>
-                                    <div class="card-text text-center">
-                                        <p class="my-4 mx-4">
-                                            Introduction
-                                        </p>
-                                        <p class="my-4 mx-4">
-                                            Money
-                                        </p>
-                                    </div>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-dark">Confirm</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="card bg-dark text-light">
-                                <div class="card-body">
-                                    <div class="card-title text-center">
-                                        <h3 class="my-4">Strategy C</h3>
-                                    </div>
-                                    <div class="card-text text-center">
-                                        <p class="my-4 mx-4">
-                                            Introduction
-                                        </p>
-                                        <p class="my-4 mx-4">
-                                            Money
-                                        </p>
-                                    </div>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-primary">Confirm</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>

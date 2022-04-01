@@ -8,6 +8,8 @@ import click from 'jquery';
 export default function Account(){
     var login_status = 0;
     var account;
+    var btns=document.getElementsByClassName("edit_border");
+	var texts = document.getElementsByTagName("textarea");
     window.onload = async function(){
         try{
             let account_now = await window.ethereum.selectedAddress;
@@ -18,6 +20,20 @@ export default function Account(){
             }
         }catch(e){
         }
+    }
+    window.onload = function(){
+        for(var a = 0;a< btns.length;a++){
+			btns[a].index = a;
+			$(btns[a]).click(function() {
+				if($(this).text() == 'Edit') {
+					$(this).text('Save');
+					$(this).addClass("edit_bordered").siblings().attr("disabled", false).addClass('edit_contained').text('');
+				}else {
+					$(this).text('Edit');
+					$(this).removeClass("edit_bordered").siblings().attr("disabled", true).removeClass('edit_contained');
+				}
+			})
+		}
     }
     async function ClickHandler_Fund(){
         if (typeof window.ethereum !== 'undefined') {
@@ -62,11 +78,6 @@ export default function Account(){
             return false;
         }
     }
-    function changeContent(){
-        var o = document.getElementById("content");
-        var c = o.innerHTML;
-        o.innerHTML = "<input type='text' value='" + c + "'/>"
-       }
     return (
         <React.Fragment>
             <title>Investor</title>
@@ -107,9 +118,9 @@ export default function Account(){
                             <div class="card bg-light text-dark">
                                 <div class="card-body">
                                     <h5 class="card-title">Progress</h5>
-                                    <span id="content">Progress</span>
-                                    <div class="text-end">
-                                        <input id="changeContent" type="button" value="Edit" onClick={changeContent()}/>
+                                    <div class="text-center">
+                                        <textarea  class="edit_contain" placeholder="Please enter progress" disabled="disabled" id="texta"></textarea>
+                                        <button class="edit_border">Edit</button>
                                     </div>
                                 </div>
                             </div>

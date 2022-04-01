@@ -247,3 +247,45 @@ section.copy p {
   padding-left:30px;
   
 }
+
+.edit_border{
+	display: inline-block;
+	width: 94px;
+	height: 20px;
+	line-height: 16px;
+	color: #03C28C;
+	border-radius: 4px;
+	border: 1px solid #03C28C;
+	background-color: #FFFFFF;
+  margin-left: 30px;
+}
+/* 保存按钮的样式 */
+.edit_bordered{
+	color: #FFFFFF;
+	background-color: #03C28C;
+}
+/* 内容不可编辑的按钮 */
+.edit_contain{
+	display: inline-block;
+	width:350px;
+  height: 100px;
+	font-size: 14px;
+	text-align: left;
+	line-height: 16px;
+	border-radius: 4px;
+	padding: 4px 7px;
+	margin-top: 4px;
+	resize:none;
+	overflow:hidden;
+	color: #333333;
+	background-color: #EFEFF4;
+	border:1px solid #EFEFF4;
+}
+/* 内容可编辑的样式 */
+.edit_contained{
+	background: none;
+	color: #333333;
+	resize:none;
+	border:1px solid #03C28C;
+}
+

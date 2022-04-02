@@ -2,7 +2,6 @@ import React from "react";
 import './bootstrapcustom.css';
 import './style.css';
 import { ethers } from "ethers";
-import $ from 'jquery';  
 import blockies from "ethereum-blockies";
 import MetaTags from 'react-meta-tags';
 
@@ -33,6 +32,7 @@ export default function Account(){
         }catch(e){
         }
         for(var a = 0;a< btns.length;a++){
+            var $ = require( "jquery" );
 			btns[a].index = a;
 			$(btns[a]).click(function() {
 				if($(this).text() == 'Edit') {

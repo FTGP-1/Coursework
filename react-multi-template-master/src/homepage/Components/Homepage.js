@@ -5,6 +5,13 @@ import './style.css';
 import {ethers} from "ethers";
 import blockies from "ethereum-blockies";
 
+// xiaoyi
+
+
+
+
+
+
 
 export default function Homepage(){
     var login_status = 0;
@@ -12,7 +19,9 @@ export default function Homepage(){
     window.onload = async function(){
         try{
             let account_now = await window.ethereum.selectedAddress;
-            console.log(account_now)
+            // console.log(account_now);
+
+
             if (account_now){
                 login_status = 1;
                 var icon = blockies.create({ // All options are optional
@@ -93,7 +102,7 @@ export default function Homepage(){
             <title>Investor</title>
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark"> 
                 <div class="container">
-                    <a href="homepage.html" class="navbar-brand">Company's name</a>
+                    <a href="homepage.html" class="navbar-brand"> Company Name</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                         Menu
                     </button>
@@ -113,9 +122,9 @@ export default function Homepage(){
                             <div>
                                 <img src={require("./img/user.png")} alt="logo" class="w-10"/>
                             </div>
-                            <h3 class="my-1">Logo</h3>
+                            <h3 class="my-1"> </h3>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum ex? Magni, nemo, nobis culpa asperiores nulla amet, repellendus placeat odit sit nisi excepturi delectus tempore tempora praesentium commodi. Minima.
+                            Company's description
                             </p>
                         </div>
                     </div>
@@ -129,7 +138,7 @@ export default function Homepage(){
                                 <button type="button" class="btn btn-secondary" onClick={ClickHandler_Investor}>I am an investor</button>
                             </div>
                             <div class="col">
-                            <button type="button" class="btn btn-secondary" onClick={ClickHandler_Fund}>I want to fund</button>
+                            <button type="button" class="btn btn-secondary" onClick={ClickHandler_Fund}>I want fund</button>
                             </div>
                         </div>
                     </div>

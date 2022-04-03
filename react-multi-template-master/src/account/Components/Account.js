@@ -4,16 +4,37 @@ import './style.css';
 import { ethers } from "ethers";
 import blockies from "ethereum-blockies";
 import MetaTags from 'react-meta-tags';
+import mongoose from "mongoose";
+import * as connect from "./connect";
+// import { postData } from "./connect";
+
+// const mongoose = require('mongoose');
 
 export default function Account(){
     var login_status = 0;
     var account;
     var btns=document.getElementsByClassName("edit_border");
 	var texts = document.getElementsByTagName("textarea");
+    var company_name = "Bun";
+
+
     window.onload = async function(){
         try{
+            // const create = require('../../controllers/investee_ctrl');
             let account_now = await window.ethereum.selectedAddress;
-            console.log(account_now)
+            // UpdateProgress();
+            // console.log(account_now)
+            // var data = {
+            //     "companyName": "Bunny-1",
+            //     "legalPerson": "Xiaoyi-1",
+            //     "account": "0xa7A4Da3D6D518DDB359298383635B635A02f4906",
+            //     "profile":"This is xiaoyi's company",
+            //     "progress":"This is first time to post",
+            //     "fulfilled":"false"
+            // };
+            // var url = "http://localhost:8080/api/investees";
+            // connect.postData(url, data);
+
             if (account_now){
                 login_status = 1;
                 var icon = blockies.create({ // All options are optional
@@ -28,6 +49,8 @@ export default function Account(){
                 });
                 document.getElementById('login_status').innerHTML = account_now.substring(0,6)+'...'+account_now.substring(38);
                 document.getElementById('login_status').appendChild(icon);
+                document.getElementById('companyName').innerHTML = company_name;
+
             }
         }catch(e){
         }
@@ -99,6 +122,10 @@ export default function Account(){
             return false;
         }
     }
+
+
+
+
     return (
         <React.Fragment>
             <MetaTags>
@@ -110,7 +137,7 @@ export default function Account(){
             <body>
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark"> 
                 <div class="container">
-                    <a href="homepage.html" class="navbar-brand">Company's name</a>
+                    <a href="homepage.html" class="navbar-brand" id="companyName"> companyName </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                         Menu
                     </button>

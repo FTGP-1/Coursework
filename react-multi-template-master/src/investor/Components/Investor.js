@@ -4,11 +4,44 @@ import './img/user.png';
 import './style.css';
 import { ethers } from "ethers";
 import blockies from "ethereum-blockies";
+
+import api from '../../api';
+
+ //----- xiaoyi----------
+
+
+async function getAllCompany()
+{
+
+    var result  = await api.getAllInvestees();
+    console.log(result.data);
+
+
+    return result.data;
+
+}
+
+
+
+
+ //----- xiaoyi----------
+
 export default function Investor(){
     var login_status = 0;
     var account;
     window.onload = async function(){
         try{
+            //----- xiaoyi----------
+            getAllCompany().then(data=>{
+                console.log(data);
+                var companyname_a = data[0].companyName;
+                document.getElementById('company_a').innerHTML = companyname_a;
+                var profile_a = data[0].profile;
+                document.getElementById('companyProfile_a').innerHTML = profile_a;
+            });
+
+
+            //----- xiaoyi----------
             let account_now = await window.ethereum.selectedAddress;
             console.log(account_now)
             if (account_now){
@@ -110,7 +143,7 @@ export default function Investor(){
                             </div>
                             <h3 class="my-1">Logo</h3>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum ex? Magni, nemo, nobis culpa asperiores nulla amet, repellendus placeat odit sit nisi excepturi delectus tempore tempora praesentium commodi. Minima.
+                                This company description
                             </p>
                         </div>
                     </div>
@@ -124,11 +157,11 @@ export default function Investor(){
                             <div class="card bg-dark text-light">
                                 <div class="card-body">
                                     <div class="card-title text-center">
-                                        <h3 class="my-4">Company A</h3>
+                                        <h3 class="my-4" id = 'company_a'>Company A</h3>
                                     </div>
                                     <div class="card-text">
-                                        <p class="my-4 mx-4">
-                                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus eligendi temporibus architecto consequuntur quis dolorum consectetur, delectus iure mollitia! Illum amet sit est magnam numquam, voluptatum at voluptates rem? Nisi.
+                                        <p class="my-4 mx-4" id = 'companyProfile_a'>
+                                         company a description
                                         </p>
                                     </div>
                                     <div class="text-center">

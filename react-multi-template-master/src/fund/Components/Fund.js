@@ -4,12 +4,33 @@ import './img/user.png';
 import "./img/money.png"
 import './style.css';
 import blockies from "ethereum-blockies";
+import api from '../../api';
+import  {getAllCompany} from '../../investor/Components/Investor.js';
 
+async function getAllCompany_fund()
+{
+
+    var result  = await api.getAllInvestees();
+    console.log(result.data);
+
+
+    return result.data;
+
+}
 
 export default function Fund(){
     var login_status = 0;
     window.onload = async function(){
         try{
+
+
+            getAllCompany_fund().then(data=>{
+                console.log(data);
+               
+            });
+
+
+
             let account_now = await window.ethereum.selectedAddress;
             console.log(account_now)
             if (account_now){

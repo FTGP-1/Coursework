@@ -38,18 +38,33 @@ exports.create = (req, res) => {
       });
   };
 
-exports.findOne = (req, res) => {
-    const id = req.params.id;
-    Investee.findOne()
-    Investee.findById(id)
+
+
+exports.findAccount = (req, res) => {
+    const account = req.params.account;
+    Investee.findOne({ account: account })
       .then(data => {
         if (!data)
-          res.status(404).send({ message: "Not found Investee with id " + id });
+          res.status(404).send({ message: "Not found Investee"});
         else res.send(data);
       })
       .catch(err => {
         res
           .status(500)
-          .send({ message: "Error retrieving Investee with id=" + id });
+          .send({ message: "Error retrieving Investee"});
+      });
+  };
+
+exports.findAll = (req, res) => {
+  
+    Investee.find()
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving investees."
+        });
       });
   };

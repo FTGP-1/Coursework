@@ -5,35 +5,76 @@ import { ethers } from "ethers";
 import blockies from "ethereum-blockies";
 import MetaTags from 'react-meta-tags';
 import mongoose from "mongoose";
-import * as connect from "./connect";
-// import { postData } from "./connect";
 
-// const mongoose = require('mongoose');
+import api from '../../api';
+import { checkResultErrors } from "ethers/lib/utils";
+
+// ------xiaoyi----------------
+
+async function getCompanyInformation(account_now)
+{
+    const {account} = account_now;
+    var result  = await api.getInvesteeByAccount(account_now);
+
+    // console.log(' get company information',result);
+
+    return result.data;
+
+}
+
+
+
+var data = {
+    "companyName": "Bunny-1",
+    "legalPerson": "Xiaoyi-1",
+    "account": "0xa7A4Da3D6D518DDB359298383635B635A02f4906",
+    "profile":"This is xiaoyi's company",
+    "progress":"This is first time to post",
+    "fulfilled":"false"
+};
+
+async function postNewRecord(payload){
+    var result = await api.createInvestee(payload);
+    var result_data = result.data;
+    console.log('create new record',result_data);
+    return result_data;
+}
+
+
+// ------xiaoyi----------------
+
+
+
 
 export default function Account(){
     var login_status = 0;
     var account;
     var btns=document.getElementsByClassName("edit_border");
 	var texts = document.getElementsByTagName("textarea");
-    var company_name = "Bun";
+
+ 
 
 
     window.onload = async function(){
         try{
             // const create = require('../../controllers/investee_ctrl');
             let account_now = await window.ethereum.selectedAddress;
-            // UpdateProgress();
-            // console.log(account_now)
-            // var data = {
-            //     "companyName": "Bunny-1",
-            //     "legalPerson": "Xiaoyi-1",
-            //     "account": "0xa7A4Da3D6D518DDB359298383635B635A02f4906",
-            //     "profile":"This is xiaoyi's company",
-            //     "progress":"This is first time to post",
-            //     "fulfilled":"false"
-            // };
-            // var url = "http://localhost:8080/api/investees";
-            // connect.postData(url, data);
+            console.log(account_now);
+            // postNewRecord(data);
+
+
+
+
+            getCompanyInformation(account_now).then(data => {
+                console.log(data);
+                var companyname = data.companyName;
+                document.getElementById('companyName').innerHTML = companyname;
+                document.getElementById('progress_textbox').innerHTML = data.progress;
+                document.getElementById("company_description").innerHTML = data.profile;
+
+            });
+  
+
 
             if (account_now){
                 login_status = 1;
@@ -49,7 +90,7 @@ export default function Account(){
                 });
                 document.getElementById('login_status').innerHTML = account_now.substring(0,6)+'...'+account_now.substring(38);
                 document.getElementById('login_status').appendChild(icon);
-                document.getElementById('companyName').innerHTML = company_name;
+
 
             }
         }catch(e){
@@ -60,7 +101,8 @@ export default function Account(){
 			$(btns[a]).click(function() {
 				if($(this).text() == 'Edit') {
 					$(this).text('Save');
-					$(this).addClass("edit_bordered").siblings().attr("disabled", false).addClass('edit_contained').text('');
+					$(this).addClass("edit_bordered").siblings().attr("disabled", false).addClass('edit_contained');
+         
 				}else {
 					$(this).text('Edit');
 					$(this).removeClass("edit_bordered").siblings().attr("disabled", true).removeClass('edit_contained');
@@ -159,8 +201,8 @@ export default function Account(){
                             <div class="center">
                                 <img src={require("./img/piechart.png")} alt="statistics" class="carousel-inner img-responsive img-roundede"/>
                             </div>
-                            <p class="mt-4"> 
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus optio libero aliquid? Laborum quidem autem corporis officia possimus magnam ipsa minima mollitia, dolor reiciendis architecto, quod ea modi consequuntur voluptas.
+                            <p class="mt-4" id = 'company_description'> 
+                                company description
                             </p>
                         </div>
                         <div class="col-lg-6">
@@ -173,7 +215,7 @@ export default function Account(){
                                 <div class="card-body">
                                     <h5 class="card-title">Progress</h5>
                                     <div class="text-center">
-                                        <textarea  class="edit_contain" placeholder="Please enter progress" disabled="disabled" id="texta"></textarea>
+                                        <textarea  class="edit_contain" placeholder="Please enter progress" disabled="disabled" id="progress_textbox"></textarea>
                                         <button class="edit_border">Edit</button>
                                     </div>
                                 </div>

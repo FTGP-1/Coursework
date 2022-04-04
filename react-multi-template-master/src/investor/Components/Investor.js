@@ -63,6 +63,18 @@ export default function Investor(){
         }catch(e){
         }
     }
+    function Click_go_a(){
+        var href = "localhost:3000/fund.html?";
+        window.location.href = href + "company=a";  
+    }
+    function Click_go_b(){
+        var href = "localhost:3000/fund.html?";
+        window.location.href = href + "company=b";  
+    }function Click_go_c(){
+        var href = "localhost:3000/fund.html?";
+        window.location.href = href + "company=c";  
+    }
+
     async function ClickHandler_Fund(){
         if (typeof window.ethereum !== 'undefined') {
             if (login_status == 0){
@@ -158,7 +170,7 @@ export default function Investor(){
                             <div class="card bg-dark text-light">
                                 <div class="card-body">
                                     <div class="card-title text-center">
-                                        <h3 class="my-4" id = 'company_a'>Company A</h3>
+                                        <h3 class="my-4 box" id = 'company_a'>Company A</h3>
                                     </div>
                                     <div class="card-text">
                                         <p class="my-4 mx-4" id = 'companyProfile_a'>
@@ -166,7 +178,7 @@ export default function Investor(){
                                         </p>
                                     </div>
                                     <div class="text-center">
-                                        <a href="fund.html" class="btn btn-primary">Find out more</a>
+                                        <a class="btn btn-primary" onClick={Click_go_a}>Find out more</a>
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +187,7 @@ export default function Investor(){
                             <div class="card bg-secondary text-light">
                                 <div class="card-body">
                                     <div class="card-title text-center">
-                                        <h3 class="my-4">Company B</h3>
+                                        <h3 class="my-4 box" id="company_b">Company B</h3>
                                     </div>
                                     <div class="card-text">
                                         <p class="my-4 mx-4">
@@ -183,7 +195,7 @@ export default function Investor(){
                                         </p>
                                     </div>
                                     <div class="text-center">
-                                        <a href="fund.html" class="btn btn-primary">Find out more</a>
+                                        <a class="btn btn-primary" onClick={Click_go_b}>Find out more</a>
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +204,7 @@ export default function Investor(){
                             <div class="card bg-dark text-light">
                                 <div class="card-body">
                                     <div class="card-title text-center">
-                                        <h3 class="my-4">Company C</h3>
+                                        <h3 class="my-4 box" id="company_c" >Company C</h3>
                                     </div>
                                     <div class="card-text">
                                         <p class="my-4 mx-4">
@@ -200,7 +212,7 @@ export default function Investor(){
                                         </p>
                                     </div>
                                     <div class="text-center">
-                                        <a href="fund.html" class="btn btn-primary">Find out more</a>
+                                        <a class="btn btn-primary" onClick={Click_go_c}>Find out more</a>
                                     </div>
                                 </div>
                             </div>

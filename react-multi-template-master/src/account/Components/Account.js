@@ -16,7 +16,7 @@ async function getCompanyInformation(account_now)
     const {account} = account_now;
     var result  = await api.getInvesteeByAccount(account_now);
 
-    // console.log(' get company information',result);
+    //console.log(' get company information',result);
 
     return result.data;
 
@@ -27,7 +27,7 @@ async function getCompanyInformation(account_now)
 var data = {
     "companyName": "Bunny-1",
     "legalPerson": "Xiaoyi-1",
-    "account": "0xa7A4Da3D6D518DDB359298383635B635A02f4906",
+    "account": "0x146298d53f1572390a5e7fcf35b314c675b71779",
     "profile":"This is xiaoyi's company",
     "progress":"This is first time to post",
     "fulfilled":"false"
@@ -60,7 +60,7 @@ export default function Account(){
             // const create = require('../../controllers/investee_ctrl');
             let account_now = await window.ethereum.selectedAddress;
             console.log(account_now);
-            // postNewRecord(data);
+            postNewRecord(data);
 
 
 
@@ -102,10 +102,10 @@ export default function Account(){
 				if($(this).text() == 'Edit') {
 					$(this).text('Save');
 					$(this).addClass("edit_bordered").siblings().attr("disabled", false).addClass('edit_contained');
-         
 				}else {
 					$(this).text('Edit');
 					$(this).removeClass("edit_bordered").siblings().attr("disabled", true).removeClass('edit_contained');
+                    console.log($(this).siblings().val());//get update value here
 				}
 			})
 		}

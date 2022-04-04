@@ -14,6 +14,7 @@ async function getAllCompany()
 {
 
     var result  = await api.getAllInvestees();
+    console.log(123456);
     console.log(result.data);
 
 

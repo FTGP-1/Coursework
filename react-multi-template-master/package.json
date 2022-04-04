@@ -146,5 +146,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "axios": "^0.26.1"
   }
 }

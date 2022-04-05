@@ -2,12 +2,14 @@ import React from "react";
 import './bootstrapcustom.css';
 import './style.css';
 import { ethers } from "ethers";
+import { useState } from "react";
 import blockies from "ethereum-blockies";
 import MetaTags from 'react-meta-tags';
 import mongoose from "mongoose";
 
 import api from '../../api';
 import { checkResultErrors } from "ethers/lib/utils";
+import { Button, Offcanvas, Table } from 'react-bootstrap';
 
 // ------xiaoyi----------------
 
@@ -165,7 +167,79 @@ export default function Account(){
         }
     }
 
-
+    function TableExample(){
+        return(
+        <>
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                <th>Date</th>
+                <th>Company Name</th>
+                <th>Company Address</th>
+                <th>Fee</th>
+                <th>Share</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>2022-04-02</td>
+                <td>Company 1</td>
+                <td>University of Bristol</td>
+                <td>100</td>
+                <td>0.5%</td>
+                </tr>
+                <tr>
+                <td>2022-04-02</td>
+                <td>Company 2</td>
+                <td>University of Bristol</td>
+                <td>200</td>
+                <td>1%</td>
+                </tr>
+                <tr>
+                <td>2022-04-02</td>
+                <td>Company 3</td>
+                <td>University of Bristol</td>
+                <td>500</td>
+                <td>2.5%</td>
+                </tr>
+            </tbody>
+        </Table>
+        
+        </>
+        );
+    }
+    function OffCanvasExample({ name, ...props }) {
+        const [show, setShow] = useState(false);
+      
+        const handleClose = () => setShow(false);
+        const handleShow = () => setShow(true);
+      
+        return (
+          <>
+            <Button variant="primary" onClick={handleShow} className="me-2">
+              {name}
+            </Button>
+            <Offcanvas show={show} onHide={handleClose} {...props}>
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title>Fund History</Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <TableExample />
+              </Offcanvas.Body>
+            </Offcanvas>
+          </>
+        );
+      }
+      
+      function Example() {
+        return (
+          <>
+            
+              <OffCanvasExample key={1} placement={"end"} name={"history"} />
+            
+          </>
+        );
+      }
 
 
     return (
@@ -177,19 +251,11 @@ export default function Account(){
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
             </MetaTags>
             <body>
+                
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark"> 
                 <div class="container">
-                    <a href="homepage.html" class="navbar-brand" id="companyName"> companyName </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-                        Menu
-                    </button>
-                    <div class="collapse navbar-collapse" id="navmenu">
-                        <ul class="navbar-nav ms-auto"> 
-                            <li class="nav-item"><a href="investor.html" class="nav-link">Invest</a></li>
-                            <li class="nav-item" onClick={ClickHandler_Fund}><a class="nav-link">Fundraise</a></li>
-                            <li class="nav-item" onClick={Login}><a class="nav-link" id="login_status">Login</a></li>
-                        </ul>
-                    </div>
+                    <a href="homepage.html" class="navbar-brand">Company's name</a>
+                    <Example />
                 </div>
             </nav>
 

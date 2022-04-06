@@ -7,6 +7,7 @@ import blockies from "ethereum-blockies";
 import { useState } from "react";
 import { Button, Offcanvas, Table } from 'react-bootstrap';
 import api from '../../api';
+import Web3 from "web3";
 
  //----- xiaoyi----------
 
@@ -27,7 +28,7 @@ async function getAllCompany()
 
 
  //----- xiaoyi----------
-
+let account_now;
 export default function Investor(){
     var login_status = 0;
     var account;
@@ -44,7 +45,7 @@ export default function Investor(){
 
 
             //----- xiaoyi----------
-            let account_now = await window.ethereum.selectedAddress;
+            account_now = await window.ethereum.selectedAddress;
             console.log(account_now)
             if (account_now){
                 login_status = 1;
@@ -65,14 +66,14 @@ export default function Investor(){
         }
     }
     function Click_go_a(){
-        var href = "localhost:3000/fund.html?";
+        var href = "fund.html?";
         window.location.href = href + "company=a";  
     }
     function Click_go_b(){
-        var href = "localhost:3000/fund.html?";
+        var href = "fund.html?";
         window.location.href = href + "company=b";  
     }function Click_go_c(){
-        var href = "localhost:3000/fund.html?";
+        var href = "fund.html?";
         window.location.href = href + "company=c";  
     }
 
@@ -132,6 +133,44 @@ export default function Investor(){
     }
 
     function TableExample(){
+        var url = `http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${account_now}&startblock=0&endblock=99999999&sort=asc&apikey=CAE3M7SNGI1WGD6ZYBZGRKXVABSUDQTCKA`;
+        var request = new XMLHttpRequest();
+        request.open("get",url);
+        request.send(null);
+        request.onload = function(){
+            if(request.status == 200){
+                var json = JSON.parse(request.responseText);
+                var transaction_array = new Array();
+                var Pay_money_transaction = new Array();
+                var Company_array = ['0xa7a4da3d6d518ddb359298383635b635a02f4906','0x53798bd0df969c8c7270eb463665a219283fab7f'];
+                
+                transaction_array = json.result;
+                for (var i = 0; i < transaction_array.length; i++){
+                    if (Company_array.indexOf(transaction_array[i].to) >= 0){
+                        Pay_money_transaction.push(transaction_array[i]);
+                    }
+                }
+                console.log(Pay_money_transaction);
+                let tab = document.getElementById('tab_1');
+                for (const v of Pay_money_transaction){
+                    //date
+                    let date = new Date(parseInt(v.timeStamp) * 1000);
+                    let Y = date.getFullYear() + '-';
+                    let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                    let D = date.getDate() + ' ';
+                    let h = date.getHours() + ':';
+                    let m = date.getMinutes() + ':';
+                    let s = date.getSeconds();
+                    let input_date = Y+M+D+h+m+s;
+                    //address
+                    let input_address = v.to;
+                    // fee
+                    let input_fee = Web3.utils.fromWei(v.value);
+                    // share
+                    tab.innerHTML+=`<tr><td>${input_date}</td><td>Companyname</td><td>${input_address}</td><td>${input_fee}</td></tr>`;
+                }
+            }
+        }
         return(
         <>
         <Table striped bordered hover>
@@ -143,25 +182,7 @@ export default function Investor(){
                 <th>Fee</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                <td>2022-04-02</td>
-                <td>Company 1</td>
-                <td>University of Bristol</td>
-                <td>100</td>
-                </tr>
-                <tr>
-                <td>2022-04-02</td>
-                <td>Company 2</td>
-                <td>University of Bristol</td>
-                <td>200</td>
-                </tr>
-                <tr>
-                <td>2022-04-02</td>
-                <td>Company 3</td>
-                <td>University of Bristol</td>
-                <td>500</td>
-                </tr>
+            <tbody id="tab_1">
             </tbody>
         </Table>
         
@@ -192,12 +213,13 @@ export default function Investor(){
       }
       
       function Example() {
+        
         return (
-          <>
+        <>
             
-              <OffCanvasExample key={1} placement={"end"} name={"history"} />
+            <OffCanvasExample key={1} placement={"end"} name={"history"} />
             
-          </>
+        </>
         );
       }
 

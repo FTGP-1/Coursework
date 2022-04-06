@@ -2,10 +2,11 @@ import React from "react";
 import './bootstrapcustom.css';
 import './style.css';
 import { ethers } from "ethers";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import blockies from "ethereum-blockies";
 import MetaTags from 'react-meta-tags';
 import mongoose from "mongoose";
+import Web3 from "web3";
 
 import api from '../../api';
 import { checkResultErrors } from "ethers/lib/utils";
@@ -55,12 +56,12 @@ export default function Account(){
 	var texts = document.getElementsByTagName("textarea");
 
  
-
+    let account_now;
 
     window.onload = async function(){
         try{
             // const create = require('../../controllers/investee_ctrl');
-            let account_now = await window.ethereum.selectedAddress;
+            account_now = await window.ethereum.selectedAddress;
             console.log(account_now);
             postNewRecord(data);
 
@@ -168,6 +169,49 @@ export default function Account(){
     }
 
     function TableExample(){
+        var url = `http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${account_now}&startblock=0&endblock=99999999&sort=asc&apikey=CAE3M7SNGI1WGD6ZYBZGRKXVABSUDQTCKA`;
+        var request = new XMLHttpRequest();
+        request.open("get",url);
+        request.send(null);
+        request.onload = function(){
+            if(request.status == 200){
+                var json = JSON.parse(request.responseText);
+                var transaction_array = new Array();
+                var Get_money_transaction = new Array();
+                var Company_array = ['0xa7a4da3d6d518ddb359298383635b635a02f4906','0x53798bd0df969c8c7270eb463665a219283fab7f'];
+                
+                transaction_array = json.result;
+                console.log(transaction_array);
+                for (var i = 0; i < transaction_array.length; i++){
+                    if (Company_array.indexOf(transaction_array[i].from) >= 0){
+                        Get_money_transaction.push(transaction_array[i]);
+                    }
+                }
+                let sum = 0;
+                for (const v of Get_money_transaction){
+                    sum = sum + parseFloat(Web3.utils.fromWei(v.value));
+                }
+                let tab = document.getElementById('tab_1');
+                for (const v of Get_money_transaction){
+                    //date
+                    let date = new Date(parseInt(v.timeStamp) * 1000);
+                    let Y = date.getFullYear() + '-';
+                    let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                    let D = date.getDate() + ' ';
+                    let h = date.getHours() + ':';
+                    let m = date.getMinutes() + ':';
+                    let s = date.getSeconds();
+                    let input_date = Y+M+D+h+m+s;
+                    //address
+                    let input_address = v.from;
+                    // fee
+                    let input_fee = Web3.utils.fromWei(v.value);
+                    // share
+                    let input_share = (Web3.utils.fromWei(v.value)/sum).toFixed(4)*100;
+                    tab.innerHTML+=`<tr><td>${input_date}</td><td>Companyname</td><td>${input_address}</td><td>${input_fee}</td><td>${input_share}</td></tr>`;
+                }
+            }
+        }
         return(
         <>
         <Table striped bordered hover>
@@ -180,28 +224,7 @@ export default function Account(){
                 <th>Share</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                <td>2022-04-02</td>
-                <td>Company 1</td>
-                <td>University of Bristol</td>
-                <td>100</td>
-                <td>0.5%</td>
-                </tr>
-                <tr>
-                <td>2022-04-02</td>
-                <td>Company 2</td>
-                <td>University of Bristol</td>
-                <td>200</td>
-                <td>1%</td>
-                </tr>
-                <tr>
-                <td>2022-04-02</td>
-                <td>Company 3</td>
-                <td>University of Bristol</td>
-                <td>500</td>
-                <td>2.5%</td>
-                </tr>
+            <tbody id="tab_1">
             </tbody>
         </Table>
         
@@ -254,7 +277,7 @@ export default function Account(){
                 
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark"> 
                 <div class="container">
-                    <a href="homepage.html" class="navbar-brand">Company's name</a>
+                    <a href="homepage.html" class="navbar-brand" id="companyName">Company's name</a>
                     <Example />
                 </div>
             </nav>

@@ -1,4 +1,6 @@
 import React from "react";
+import { Component } from "react";
+import Pie from "./piechart.js";
 import './bootstrapcustom.css';
 import './style.css';
 import { ethers } from "ethers";
@@ -8,9 +10,11 @@ import MetaTags from 'react-meta-tags';
 import mongoose from "mongoose";
 import Web3 from "web3";
 
+
 import api from '../../api';
 import { checkResultErrors } from "ethers/lib/utils";
 import { Button, Offcanvas, Table } from 'react-bootstrap';
+
 
 // ------xiaoyi----------------
 
@@ -44,10 +48,18 @@ async function postNewRecord(payload){
 }
 
 
+
 // ------xiaoyi----------------
 
+function createPieChart(){
+    
+}
 
-
+const pieChartData=[
+    {value: 100, name: "Company 1"},
+    {value: 200, name: "Company 2"},
+    {value: 150, name: "Company 3"}
+  ]
 
 export default function Account(){
     var login_status = 0;
@@ -212,6 +224,7 @@ export default function Account(){
                 }
             }
         }
+        
         return(
         <>
         <Table striped bordered hover>
@@ -264,6 +277,35 @@ export default function Account(){
         );
       }
 
+      class ApexChart extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.state = {
+          
+            series: [44, 55, 13, 43, 22],
+            options: {
+              chart: {
+                width: 380,
+                type: 'pie',
+              },
+              labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+              responsive: [{
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }]
+            },
+          };
+        }
+    }
+
 
     return (
         <React.Fragment>
@@ -285,10 +327,9 @@ export default function Account(){
             <div class="section-bg-2 text-light text-center text-sm-start">
                 <div class="container">
                     <div class="row g-5">
-                        <div class="col-lg-6">
-                            
-                            <div class="center">
-                                <img src={require("./img/piechart.png")} alt="statistics" class="carousel-inner img-responsive img-roundede"/>
+                        <div class="col-lg-6">                   
+                            <div class="pieChart">
+                                <Pie data={pieChartData} />
                             </div>
                             <p class="mt-4" id = 'company_description'> 
                                 company description

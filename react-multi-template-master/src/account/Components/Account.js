@@ -2,33 +2,45 @@ import React from "react";
 import './bootstrapcustom.css';
 import './style.css';
 import { ethers } from "ethers";
+import { useState,useEffect } from "react";
 import blockies from "ethereum-blockies";
 import MetaTags from 'react-meta-tags';
 import mongoose from "mongoose";
+import Web3 from "web3";
 
 import api from '../../api';
 import { checkResultErrors } from "ethers/lib/utils";
+import { Button, Offcanvas, Table } from 'react-bootstrap';
 
 // ------xiaoyi----------------
 
 async function getCompanyInformation(account_now)
 {
-    const {account} = account_now;
     var result  = await api.getInvesteeByAccount(account_now);
-
-    // console.log(' get company information',result);
-
     return result.data;
 
 }
 
+async function updateProgress(account_now,new_progress)
+{
+    // const {account} = account_now;
+    var result = await api.updateInvesteeProgressByAccount(account_now,{progress: new_progress});
+    return result;
+}
+
+async function getAllAccount(){
+    var result  = await api.getAllInvestees();
+    return result.data
+}
 
 
 var data = {
-    "companyName": "Bunny-1",
-    "legalPerson": "Xiaoyi-1",
-    "account": "0xa7A4Da3D6D518DDB359298383635B635A02f4906",
-    "profile":"This is xiaoyi's company",
+    "companyName": "MailTech",
+    "legalPerson": "Xiaoyi",
+    "account": "0x146298d53f1572390a5e7fcf35b314c675b71779",
+    "tickerName":"bunny_coin",
+    "tickerPrice":"10",
+    "profile":"MailTech, which uses artificial intelligence, allows consumers to send goods, letters, and returns using only their phone - no postage stamps or printed labels necessary. Scoping experiments with the CEO of Royal Mail and other positions. ",
     "progress":"This is first time to post",
     "fulfilled":"false"
 };
@@ -53,28 +65,28 @@ export default function Account(){
 	var texts = document.getElementsByTagName("textarea");
 
  
-
+    let account_now;
 
     window.onload = async function(){
         try{
-            // const create = require('../../controllers/investee_ctrl');
-            let account_now = await window.ethereum.selectedAddress;
+           
+            account_now = await window.ethereum.selectedAddress;
             console.log(account_now);
             // postNewRecord(data);
 
 
-
-
             getCompanyInformation(account_now).then(data => {
-                console.log(data);
+                // console.log(data);
                 var companyname = data.companyName;
                 document.getElementById('companyName').innerHTML = companyname;
                 document.getElementById('progress_textbox').innerHTML = data.progress;
                 document.getElementById("company_description").innerHTML = data.profile;
+                document.getElementById("ticker_name_box").innerHTML = data.tickerName;
+                document.getElementById("ticker_price_box").innerHTML = 'Price: '+data.tickerPrice;
 
             });
   
-
+           
 
             if (account_now){
                 login_status = 1;
@@ -102,11 +114,23 @@ export default function Account(){
 				if($(this).text() == 'Edit') {
 					$(this).text('Save');
 					$(this).addClass("edit_bordered").siblings().attr("disabled", false).addClass('edit_contained');
-         
 				}else {
 					$(this).text('Edit');
 					$(this).removeClass("edit_bordered").siblings().attr("disabled", true).removeClass('edit_contained');
+                    var new_text = $(this).siblings().val();
+                    // console.log($(this).siblings().val());//get update value here
+                    updateProgress(account_now, new_text).then(data => {
+                        if(data && data.status == 200) {
+                            alert('Update Successfully');
+                        } else {
+                            alert('Error!');
+                        }
+                    })
+                    
+                    
+                   
 				}
+               
 			})
 		}
     }
@@ -165,7 +189,131 @@ export default function Account(){
         }
     }
 
+    function TableExample(){
+        var url = `http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${account_now}&startblock=0&endblock=99999999&sort=asc&apikey=CAE3M7SNGI1WGD6ZYBZGRKXVABSUDQTCKA`;
+        var request = new XMLHttpRequest();
+        request.open("get",url);
+        request.send(null);
 
+
+        request.onload = function(){
+
+            var Company_array=[];
+
+
+
+            if(request.status == 200){
+                var json = JSON.parse(request.responseText);
+                var transaction_array = new Array();
+                var Get_money_transaction = new Array();
+
+                // var Company_array = ['0xa7a4da3d6d518ddb359298383635b635a02f4906','0x146298d53f1572390a5e7fcf35b314c675b71779'];
+                
+
+                //------ xiaoyi----------
+                getAllAccount().then(data => {
+
+                    for(var i = 0;i < data.length;i++){
+                        console.log(data[i].account);
+                        Company_array.push(data[i].account);
+                    }
+
+                //------ xiaoyi----------
+                    transaction_array = json.result;
+                    console.log(transaction_array);
+                    for (var i = 0; i < transaction_array.length; i++){
+                        if (Company_array.indexOf(transaction_array[i].from) >= 0){
+                            Get_money_transaction.push(transaction_array[i]);
+                        }
+                    }
+                    let sum = 0;
+                    for (const v of Get_money_transaction){
+                        sum = sum + parseFloat(Web3.utils.fromWei(v.value));
+                    }
+                    let tab = document.getElementById('tab_1');
+                    for (const v of Get_money_transaction){
+                        //date
+                        let date = new Date(parseInt(v.timeStamp) * 1000);
+                        let Y = date.getFullYear() + '-';
+                        let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                        let D = date.getDate() + ' ';
+                        let h = date.getHours() + ':';
+                        let m = date.getMinutes() + ':';
+                        let s = date.getSeconds();
+                        let input_date = Y+M+D+h+m+s;
+                        //address
+                        let input_address = v.from;
+                        // fee
+                        let input_fee = Web3.utils.fromWei(v.value);
+                        // share
+                        let input_share = (Web3.utils.fromWei(v.value)/sum).toFixed(4)*100;
+                        getCompanyInformation(input_address).then(data => {
+                            var input_name = data.companyName;
+                            tab.innerHTML+=`<tr><td>${input_date}</td><td>${input_name}</td><td>${input_address}</td><td>${input_fee}</td><td>${input_share}</td></tr>`;
+
+                        });
+
+
+                        // tab.innerHTML+=`<tr><td>${input_date}</td><td>Companyname</td><td>${input_address}</td><td>${input_fee}</td><td>${input_share}</td></tr>`;
+                    }
+                });
+
+                
+
+                
+            }
+        }
+        return(
+        <>
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                <th>Date</th>
+                <th>Company Name</th>
+                <th>Company Address</th>
+                <th>Fee</th>
+                <th>Share</th>
+                </tr>
+            </thead>
+            <tbody id="tab_1">
+            </tbody>
+        </Table>
+        
+        </>
+        );
+    }
+    function OffCanvasExample({ name, ...props }) {
+        const [show, setShow] = useState(false);
+      
+        const handleClose = () => setShow(false);
+        const handleShow = () => setShow(true);
+      
+        return (
+          <>
+            <Button variant="primary" onClick={handleShow} className="me-2">
+              {name}
+            </Button>
+            <Offcanvas show={show} onHide={handleClose} {...props}>
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title>Fund History</Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <TableExample />
+              </Offcanvas.Body>
+            </Offcanvas>
+          </>
+        );
+      }
+      
+      function Example() {
+        return (
+          <>
+            
+              <OffCanvasExample key={1} placement={"end"} name={"history"} />
+            
+          </>
+        );
+      }
 
 
     return (
@@ -177,19 +325,11 @@ export default function Account(){
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
             </MetaTags>
             <body>
+                
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark"> 
                 <div class="container">
-                    <a href="homepage.html" class="navbar-brand" id="companyName"> companyName </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-                        Menu
-                    </button>
-                    <div class="collapse navbar-collapse" id="navmenu">
-                        <ul class="navbar-nav ms-auto"> 
-                            <li class="nav-item"><a href="investor.html" class="nav-link">Invest</a></li>
-                            <li class="nav-item" onClick={ClickHandler_Fund}><a class="nav-link">Fundraise</a></li>
-                            <li class="nav-item" onClick={Login}><a class="nav-link" id="login_status">Login</a></li>
-                        </ul>
-                    </div>
+                    <a href="homepage.html" class="navbar-brand" id="companyName">Company's name</a>
+                    <Example />
                 </div>
             </nav>
 
@@ -209,7 +349,8 @@ export default function Account(){
                             
                             <div class="d-flex align-items-center bg-light text-dark mb-4">
                                 <img src={require("./img/money.png")} alt="statistics" class="imgsize my-4"/>
-                                <h3 class="mx-4 my-2">Ticker's name</h3>
+                                <h3 class="mx-4 my-2" id="ticker_name_box" >Ticker's name</h3>
+                                <h3 class="mx-4 my-2" id="ticker_price_box" >Ticker's price</h3>
                             </div>
                             <div class="card bg-light text-dark">
                                 <div class="card-body">

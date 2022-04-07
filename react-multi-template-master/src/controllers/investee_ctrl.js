@@ -18,6 +18,8 @@ exports.create = (req, res) => {
     const investee = new Investee({
       companyName: req.body.companyName,
       legalPerson:req.body.legalPerson,
+      tickerName:req.body.tickerName,
+      tickerPrice:req.body.tickerPrice,
       account: req.body.account,
       profile: req.body.profile,
       progress: req.body.progress,
@@ -68,3 +70,25 @@ exports.findAll = (req, res) => {
         });
       });
   };
+
+exports.findAndUpdate= (req,res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!"
+    });
+  }
+  const filter = { account: req.params.account};
+  const update = { progress: req.body.progress };
+
+  Investee.findOneAndUpdate(filter,update)
+  .then(data => {
+    if (!data)
+      res.status(404).send({ message: "Not found Investee"});
+    else res.send(data);
+  })
+  .catch(err => {
+    res
+      .status(500)
+      .send({ message: "Error retrieving Investee"});
+  });
+}; 

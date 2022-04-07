@@ -7,11 +7,13 @@ const api = axios.create({
 export const createInvestee = payload => api.post(`/investees`, payload)
 export const getInvesteeByAccount = account => api.get(`/investees/${account}`)
 export const getAllInvestees = () => api.get(`/investees`)
+export const updateInvesteeProgressByAccount = (account,payload)=>api.put(`/investees/${account}`, payload)
 
 const apis = {
     createInvestee,
     getInvesteeByAccount,
     getAllInvestees,
+    updateInvesteeProgressByAccount,
 }
 
 export default apis

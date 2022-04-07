@@ -48,6 +48,8 @@ export default function Fund(){
                 document.getElementById('login_status').innerHTML = account_now.substring(0,6)+'...'+account_now.substring(38);
                 document.getElementById('login_status').appendChild(icon);
             }
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            console.log(hashes);
         }catch(e){
         }
     }

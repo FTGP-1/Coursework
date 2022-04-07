@@ -4,8 +4,10 @@ import './img/user.png';
 import './style.css';
 import { ethers } from "ethers";
 import blockies from "ethereum-blockies";
-
+import { useState } from "react";
+import { Button, Offcanvas, Table } from 'react-bootstrap';
 import api from '../../api';
+import Web3 from "web3";
 
  //----- xiaoyi----------
 
@@ -14,6 +16,7 @@ async function getAllCompany()
 {
 
     var result  = await api.getAllInvestees();
+    console.log(123456);
     console.log(result.data);
 
 
@@ -25,7 +28,7 @@ async function getAllCompany()
 
 
  //----- xiaoyi----------
-
+let account_now;
 export default function Investor(){
     var login_status = 0;
     var account;
@@ -42,7 +45,7 @@ export default function Investor(){
 
 
             //----- xiaoyi----------
-            let account_now = await window.ethereum.selectedAddress;
+            account_now = await window.ethereum.selectedAddress;
             console.log(account_now)
             if (account_now){
                 login_status = 1;
@@ -62,6 +65,18 @@ export default function Investor(){
         }catch(e){
         }
     }
+    function Click_go_a(){
+        var href = "fund.html?";
+        window.location.href = href + "company=a";  
+    }
+    function Click_go_b(){
+        var href = "fund.html?";
+        window.location.href = href + "company=b";  
+    }function Click_go_c(){
+        var href = "fund.html?";
+        window.location.href = href + "company=c";  
+    }
+
     async function ClickHandler_Fund(){
         if (typeof window.ethereum !== 'undefined') {
             if (login_status == 0){
@@ -116,20 +131,110 @@ export default function Investor(){
             return false;
         }
     }
+
+    function TableExample(){
+        var url = `http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${account_now}&startblock=0&endblock=99999999&sort=asc&apikey=CAE3M7SNGI1WGD6ZYBZGRKXVABSUDQTCKA`;
+        var request = new XMLHttpRequest();
+        request.open("get",url);
+        request.send(null);
+        request.onload = function(){
+            if(request.status == 200){
+                var json = JSON.parse(request.responseText);
+                var transaction_array = new Array();
+                var Pay_money_transaction = new Array();
+                var Company_array = ['0xa7a4da3d6d518ddb359298383635b635a02f4906','0x53798bd0df969c8c7270eb463665a219283fab7f'];
+                
+                transaction_array = json.result;
+                for (var i = 0; i < transaction_array.length; i++){
+                    if (Company_array.indexOf(transaction_array[i].to) >= 0){
+                        Pay_money_transaction.push(transaction_array[i]);
+                    }
+                }
+                console.log(Pay_money_transaction);
+                let tab = document.getElementById('tab_1');
+                for (const v of Pay_money_transaction){
+                    //date
+                    let date = new Date(parseInt(v.timeStamp) * 1000);
+                    let Y = date.getFullYear() + '-';
+                    let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                    let D = date.getDate() + ' ';
+                    let h = date.getHours() + ':';
+                    let m = date.getMinutes() + ':';
+                    let s = date.getSeconds();
+                    let input_date = Y+M+D+h+m+s;
+                    //address
+                    let input_address = v.to;
+                    // fee
+                    let input_fee = Web3.utils.fromWei(v.value);
+                    // share
+                    tab.innerHTML+=`<tr><td>${input_date}</td><td>Companyname</td><td>${input_address}</td><td>${input_fee}</td></tr>`;
+                }
+            }
+        }
+        return(
+        <>
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                <th>Date</th>
+                <th>Company Name</th>
+                <th>Company Address</th>
+                <th>Fee</th>
+                </tr>
+            </thead>
+            <tbody id="tab_1">
+            </tbody>
+        </Table>
+        
+        </>
+        );
+    }
+    function OffCanvasExample({ name, ...props }) {
+        const [show, setShow] = useState(false);
+      
+        const handleClose = () => setShow(false);
+        const handleShow = () => setShow(true);
+      
+        return (
+          <>
+            <Button variant="dark" onClick={handleShow} className="me-2">
+              {name}
+            </Button>
+            <Offcanvas show={show} onHide={handleClose} {...props}>
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title>Fund History</Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <TableExample />
+              </Offcanvas.Body>
+            </Offcanvas>
+          </>
+        );
+      }
+      
+      function Example() {
+        
+        return (
+        <>
+            
+            <OffCanvasExample key={1} placement={"end"} name={"history"} />
+            
+        </>
+        );
+      }
+
     return (
         <React.Fragment>
             <title>Investor</title>
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark"> 
                 <div class="container">
                     <a href="homepage.html" class="navbar-brand">Company's name</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-                        Menu
-                    </button>
                     <div class="collapse navbar-collapse" id="navmenu">
                         <ul class="navbar-nav ms-auto"> 
                             <li class="nav-item"><a href="investor.html" class="nav-link">Invest</a></li>
                             <li class="nav-item" onClick={ClickHandler_Fund}><a class="nav-link">Fundraise</a></li>
                             <li class="nav-item" onClick={Login}><a class="nav-link" id="login_status">Login</a></li>
+                            <Example /> 
                         </ul>
                     </div>
                 </div>
@@ -157,7 +262,7 @@ export default function Investor(){
                             <div class="card bg-dark text-light">
                                 <div class="card-body">
                                     <div class="card-title text-center">
-                                        <h3 class="my-4" id = 'company_a'>Company A</h3>
+                                        <h3 class="my-4 box" id = 'company_a'>Company A</h3>
                                     </div>
                                     <div class="card-text">
                                         <p class="my-4 mx-4" id = 'companyProfile_a'>
@@ -165,7 +270,7 @@ export default function Investor(){
                                         </p>
                                     </div>
                                     <div class="text-center">
-                                        <a href="fund.html" class="btn btn-primary">Find out more</a>
+                                        <a class="btn btn-primary" onClick={Click_go_a}>Find out more</a>
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +279,7 @@ export default function Investor(){
                             <div class="card bg-secondary text-light">
                                 <div class="card-body">
                                     <div class="card-title text-center">
-                                        <h3 class="my-4">Company B</h3>
+                                        <h3 class="my-4 box" id="company_b">Company B</h3>
                                     </div>
                                     <div class="card-text">
                                         <p class="my-4 mx-4">
@@ -182,7 +287,7 @@ export default function Investor(){
                                         </p>
                                     </div>
                                     <div class="text-center">
-                                        <a href="fund.html" class="btn btn-primary">Find out more</a>
+                                        <a class="btn btn-primary" onClick={Click_go_b}>Find out more</a>
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +296,7 @@ export default function Investor(){
                             <div class="card bg-dark text-light">
                                 <div class="card-body">
                                     <div class="card-title text-center">
-                                        <h3 class="my-4">Company C</h3>
+                                        <h3 class="my-4 box" id="company_c" >Company C</h3>
                                     </div>
                                     <div class="card-text">
                                         <p class="my-4 mx-4">
@@ -199,7 +304,7 @@ export default function Investor(){
                                         </p>
                                     </div>
                                     <div class="text-center">
-                                        <a href="fund.html" class="btn btn-primary">Find out more</a>
+                                        <a class="btn btn-primary" onClick={Click_go_c}>Find out more</a>
                                     </div>
                                 </div>
                             </div>

@@ -10,7 +10,7 @@ module.exports = app => {
     // Retrieve all 
     router.get("/", investees.findAll);
 
-
+    router.put('/:account', investees.findAndUpdate);
 
     app.use('/api/investees', router);
   };

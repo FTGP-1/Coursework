@@ -146,5 +146,9 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "axios": "^0.26.1",
+    "react-bootstrap": "^2.2.3"
   }
 }

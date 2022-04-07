@@ -11,12 +11,21 @@ async function getAllCompany_fund()
 {
 
     var result  = await api.getAllInvestees();
-    console.log(result.data);
-
-
     return result.data;
 
 }
+
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("?");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+
 
 export default function Fund(){
     var login_status = 0;
@@ -26,7 +35,11 @@ export default function Fund(){
 
             getAllCompany_fund().then(data=>{
                 console.log(data);
-               
+                var current_company = getQueryVariable("company");
+                console.log(current_company);
+                document.getElementById("company_profile").innerHTML = data[current_company].profile;
+                document.getElementById("current_progress").innerHTML = data[current_company].progress;
+
             });
 
 
@@ -77,7 +90,7 @@ export default function Fund(){
                                 <img src={require("./img/user.png")} alt="logo" class="w-5"/>
                             </div>
                             <h3 class="my-1">Logo</h3>
-                            <p>
+                            <p id="company_profile">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum ex? Magni, nemo, nobis culpa asperiores nulla amet, repellendus placeat odit sit nisi excepturi delectus tempore tempora praesentium commodi. Minima.
                             </p>
                         </div>
@@ -95,8 +108,7 @@ export default function Fund(){
                                         <h3 class="my-4">Short Summary</h3>
                                     </div>
                                     <div class="card-text">
-                                        <p class="my-4 mx-4">
-                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus eligendi temporibus architecto consequuntur quis dolorum consectetur, delectus iure mollitia! Illum amet sit est magnam numquam, voluptatum at voluptates rem? Nisi.
+                                        <p class="my-4 mx-4" id = "current_progress">
                                         </p>
                                     </div>
                                 </div>

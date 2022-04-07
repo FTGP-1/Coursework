@@ -11,20 +11,25 @@ import Web3 from "web3";
 
  //----- xiaoyi----------
 
+ async function getCompanyInformation(account_now)
+ {
+     var result  = await api.getInvesteeByAccount(account_now);
+     return result.data;
+ 
+ }
 
 async function getAllCompany()
 {
 
     var result  = await api.getAllInvestees();
-    console.log(123456);
-    console.log(result.data);
-
-
     return result.data;
 
 }
 
-
+async function getAllAccount(){
+    var result  = await api.getAllInvestees();
+    return result.data
+}
 
 
  //----- xiaoyi----------
@@ -36,11 +41,19 @@ export default function Investor(){
         try{
             //----- xiaoyi----------
             getAllCompany().then(data=>{
-                console.log(data);
-                var companyname_a = data[0].companyName;
-                document.getElementById('company_a').innerHTML = companyname_a;
-                var profile_a = data[0].profile;
-                document.getElementById('companyProfile_a').innerHTML = profile_a;
+
+                document.getElementById('company_a').innerHTML = data[0].companyName;
+                document.getElementById('companyProfile_a').innerHTML = data[0].profile;
+
+
+                document.getElementById('company_b').innerHTML = data[1].companyName;
+                document.getElementById('companyProfile_b').innerHTML = data[1].profile;
+
+
+                document.getElementById('company_c').innerHTML = data[2].companyName;
+                document.getElementById('companyProfile_c').innerHTML = data[2].profile;
+
+                
             });
 
 
@@ -67,14 +80,14 @@ export default function Investor(){
     }
     function Click_go_a(){
         var href = "fund.html?";
-        window.location.href = href + "company=a";  
+        window.location.href = href + "company=0";  
     }
     function Click_go_b(){
         var href = "fund.html?";
-        window.location.href = href + "company=b";  
+        window.location.href = href + "company=1";  
     }function Click_go_c(){
         var href = "fund.html?";
-        window.location.href = href + "company=c";  
+        window.location.href = href + "company=2";  
     }
 
     async function ClickHandler_Fund(){
@@ -137,13 +150,23 @@ export default function Investor(){
         var request = new XMLHttpRequest();
         request.open("get",url);
         request.send(null);
+        var Company_array =[]
         request.onload = function(){
             if(request.status == 200){
                 var json = JSON.parse(request.responseText);
                 var transaction_array = new Array();
                 var Pay_money_transaction = new Array();
-                var Company_array = ['0xa7a4da3d6d518ddb359298383635b635a02f4906','0x53798bd0df969c8c7270eb463665a219283fab7f'];
+                // var Company_array = ['0xa7a4da3d6d518ddb359298383635b635a02f4906','0x53798bd0df969c8c7270eb463665a219283fab7f'];
                 
+                //------ xiaoyi----------
+            getAllAccount().then(data => {
+
+                    for(var i = 0;i < data.length;i++){
+                        console.log(data[i].account);
+                        Company_array.push(data[i].account);
+                    }
+
+                //------ xiaoyi----------
                 transaction_array = json.result;
                 for (var i = 0; i < transaction_array.length; i++){
                     if (Company_array.indexOf(transaction_array[i].to) >= 0){
@@ -167,9 +190,17 @@ export default function Investor(){
                     // fee
                     let input_fee = Web3.utils.fromWei(v.value);
                     // share
-                    tab.innerHTML+=`<tr><td>${input_date}</td><td>Companyname</td><td>${input_address}</td><td>${input_fee}</td></tr>`;
+                    // tab.innerHTML+=`<tr><td>${input_date}</td><td>Companyname</td><td>${input_address}</td><td>${input_fee}</td></tr>`;
+                    getCompanyInformation(input_address).then(data => {
+                        var input_name = data.companyName;
+                        tab.innerHTML+=`<tr><td>${input_date}</td><td>${input_name}</td><td>${input_address}</td><td>${input_fee}</td></tr>`;
+
+                    }).catch(err => {
+                        console.log(err);
+                    });
                 }
-            }
+            });
+        }
         }
         return(
         <>
@@ -282,8 +313,8 @@ export default function Investor(){
                                         <h3 class="my-4 box" id="company_b">Company B</h3>
                                     </div>
                                     <div class="card-text">
-                                        <p class="my-4 mx-4">
-                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus eligendi temporibus architecto consequuntur quis dolorum consectetur, delectus iure mollitia! Illum amet sit est magnam numquam, voluptatum at voluptates rem? Nisi.
+                                        <p class="my-4 mx-4" id="companyProfile_b">
+                                        company b description
                                         </p>
                                     </div>
                                     <div class="text-center">
@@ -298,10 +329,10 @@ export default function Investor(){
                                     <div class="card-title text-center">
                                         <h3 class="my-4 box" id="company_c" >Company C</h3>
                                     </div>
-                                    <div class="card-text">
-                                        <p class="my-4 mx-4">
-                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus eligendi temporibus architecto consequuntur quis dolorum consectetur, delectus iure mollitia! Illum amet sit est magnam numquam, voluptatum at voluptates rem? Nisi.
-                                        </p>
+                                    <div class="card-text" >
+                                        <p class="my-4 mx-4" id="companyProfile_c">
+                                        company c description                           
+                                         </p>
                                     </div>
                                     <div class="text-center">
                                         <a class="btn btn-primary" onClick={Click_go_c}>Find out more</a>

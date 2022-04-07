@@ -36,16 +36,16 @@ async function getAllAccount(){
 }
 
 
-var data = {
-    "companyName": "MailTech",
-    "legalPerson": "Xiaoyi",
-    "account": "0x146298d53f1572390a5e7fcf35b314c675b71779",
-    "tickerName":"bunny_coin",
-    "tickerPrice":"10",
-    "profile":"MailTech, which uses artificial intelligence, allows consumers to send goods, letters, and returns using only their phone - no postage stamps or printed labels necessary. Scoping experiments with the CEO of Royal Mail and other positions. ",
-    "progress":"This is first time to post",
-    "fulfilled":"false"
-};
+// var data = {
+//     "companyName": "Hemp eHome",
+//     "legalPerson": "Chang",
+//     "account": "0x883a0457c984f6cac362f0b9e1649782c9eb4506",
+//     "tickerName":"bird_coin",
+//     "tickerPrice":"8",
+//     "profile":"Hemp eHome mixes technological innovation with nature to prevent climate change and provide local communities with long-term development advantages.",
+//     "progress":"This is the first time for Hemp eHome to post",
+//     "fulfilled":"false"
+// };
 
 async function postNewRecord(payload){
     var result = await api.createInvestee(payload);
@@ -82,7 +82,7 @@ export default function Account(){
            
             account_now = await window.ethereum.selectedAddress;
             console.log(account_now);
-            postNewRecord(data);
+            // postNewRecord(data);
 
 
             getCompanyInformation(account_now).then(data => {
@@ -241,6 +241,7 @@ export default function Account(){
                         sum = sum + parseFloat(Web3.utils.fromWei(v.value));
                     }
                     let tab = document.getElementById('tab_1');
+
                     for (const v of Get_money_transaction){
                         //date
                         let date = new Date(parseInt(v.timeStamp) * 1000);
@@ -261,8 +262,9 @@ export default function Account(){
                             var input_name = data.companyName;
                             tab.innerHTML+=`<tr><td>${input_date}</td><td>${input_name}</td><td>${input_address}</td><td>${input_fee}</td><td>${input_share}</td></tr>`;
 
+                        }).catch(err => {
+                            console.log(err);
                         });
-
 
                         // tab.innerHTML+=`<tr><td>${input_date}</td><td>Companyname</td><td>${input_address}</td><td>${input_fee}</td><td>${input_share}</td></tr>`;
                     }

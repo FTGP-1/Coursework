@@ -821,14 +821,35 @@
     "core-js-pure" "^3.0.0"
     "regenerator-runtime" "^0.13.2"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.7.4", "@babel/runtime@7.7.4":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.4", "@babel/runtime@7.7.4":
   "integrity" "sha512-r24eVUUr0QqNZa+qrImUk8fn5SPhHq+IfYvIoIMg0do3GdK9sMdiLKP3GYVVaxpPKORgm8KRKaNTEhAjgIpLMw=="
   "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.7.4.tgz"
   "version" "7.7.4"
   dependencies:
     "regenerator-runtime" "^0.13.2"
 
+<<<<<<< HEAD
 "@babel/runtime@^7.13.16", "@babel/runtime@^7.17.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3":
+  "integrity" "sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.17.9.tgz"
+  "version" "7.17.9"
+  dependencies:
+    "regenerator-runtime" "^0.13.4"
+
+"@babel/runtime@^7.5.1":
+  "integrity" "sha1-0YxRESGv8bTyzR1FLxuslgHdgw8="
+  "resolved" "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.7.6.tgz?cache=0&sync_timestamp=1575764653511&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.7.6.tgz"
+  "version" "7.7.6"
+=======
+"@babel/runtime@^7.13.16":
+  "integrity" "sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.17.9.tgz"
+  "version" "7.17.9"
+>>>>>>> e21e41c7b6c7feb5c14709ce1d55989d250f68ac
+  dependencies:
+    "regenerator-runtime" "^0.13.4"
+
+"@babel/runtime@^7.17.2":
   "integrity" "sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg=="
   "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.17.9.tgz"
   "version" "7.17.9"
@@ -842,26 +863,23 @@
   dependencies:
     "regenerator-runtime" "^0.13.2"
 
-"@babel/runtime@^7.6.0":
-  "integrity" "sha1-0YxRESGv8bTyzR1FLxuslgHdgw8="
-  "resolved" "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.7.6.tgz?cache=0&sync_timestamp=1575764653511&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.7.6.tgz"
-  "version" "7.7.6"
-  dependencies:
-    "regenerator-runtime" "^0.13.2"
-
-"@babel/runtime@^7.6.2":
-  "integrity" "sha1-0YxRESGv8bTyzR1FLxuslgHdgw8="
-  "resolved" "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.7.6.tgz?cache=0&sync_timestamp=1575764653511&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.7.6.tgz"
-  "version" "7.7.6"
-  dependencies:
-    "regenerator-runtime" "^0.13.2"
-
+<<<<<<< HEAD
 "@babel/runtime@^7.7.2":
+=======
+"@babel/runtime@^7.6.0":
+>>>>>>> e21e41c7b6c7feb5c14709ce1d55989d250f68ac
   "integrity" "sha1-0YxRESGv8bTyzR1FLxuslgHdgw8="
   "resolved" "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.7.6.tgz?cache=0&sync_timestamp=1575764653511&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.7.6.tgz"
   "version" "7.7.6"
   dependencies:
     "regenerator-runtime" "^0.13.2"
+
+"@babel/runtime@^7.8.7":
+  "integrity" "sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.17.9.tgz"
+  "version" "7.17.9"
+  dependencies:
+    "regenerator-runtime" "^0.13.4"
 
 "@babel/runtime@^7.8.7":
   "integrity" "sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg=="
@@ -4418,6 +4436,22 @@
     "jsbn" "~0.1.0"
     "safer-buffer" "^2.1.0"
 
+"echarts-for-react@^3.0.2":
+  "integrity" "sha512-DRwIiTzx8JfwPOVgGttDytBqdp5VzCSyMRIxubgU/g2n9y3VLUmF2FK7Icmg/sNVkv4+rktmrLN9w22U2yy3fA=="
+  "resolved" "https://registry.npmjs.org/echarts-for-react/-/echarts-for-react-3.0.2.tgz"
+  "version" "3.0.2"
+  dependencies:
+    "fast-deep-equal" "^3.1.3"
+    "size-sensor" "^1.0.1"
+
+"echarts@^3.0.0 || ^4.0.0 || ^5.0.0", "echarts@^5.3.2":
+  "integrity" "sha512-LWCt7ohOKdJqyiBJ0OGBmE9szLdfA9sGcsMEi+GGoc6+Xo75C+BkcT/6NNGRHAWtnQl2fNow05AQjznpap28TQ=="
+  "resolved" "https://registry.npmjs.org/echarts/-/echarts-5.3.2.tgz"
+  "version" "5.3.2"
+  dependencies:
+    "tslib" "2.3.0"
+    "zrender" "5.3.1"
+
 "ee-first@1.1.1":
   "integrity" "sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0="
   "resolved" "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"
@@ -5104,6 +5138,11 @@
   "integrity" "sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk="
   "resolved" "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz"
   "version" "2.0.1"
+
+"fast-deep-equal@^3.1.3":
+  "integrity" "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q=="
+  "resolved" "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz"
+  "version" "3.1.3"
 
 "fast-glob@^2.0.2":
   "integrity" "sha512-g1KuQwHOZAmOZMuBtHdxDtju+T2RT8jgCC9aANsbpdiDDTSnjgfuVsIBNKbUeJI3oKMRExcfNDtJl4OhbffMsw=="
@@ -9964,7 +10003,11 @@
     "strip-ansi" "5.2.0"
     "text-table" "0.2.0"
 
+<<<<<<< HEAD
 "react-dom@*", "react-dom@^16.12.0", "react-dom@^16.6.0", "react-dom@>=16.14.0", "react-dom@>=16.6.0":
+=======
+"react-dom@*", "react-dom@^16.12.0", "react-dom@^16.6.0", "react-dom@^16.8.0 || ^17.0.0", "react-dom@>=16.14.0", "react-dom@>=16.6.0":
+>>>>>>> e21e41c7b6c7feb5c14709ce1d55989d250f68ac
   "integrity" "sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-16.14.0.tgz"
   "version" "16.14.0"
@@ -9994,6 +10037,14 @@
   "resolved" "https://registry.npmjs.org/react-meta-tags/-/react-meta-tags-1.0.1.tgz"
   "version" "1.0.1"
 
+<<<<<<< HEAD
+=======
+"react-minimal-pie-chart@^8.2.0":
+  "integrity" "sha512-RhrHzprJt3KfBe4L3sE0Ha6fj4kYcwQtesQgscnld9Umf64+nZnxxInycnbimKsbIjxJONv77JIZp+qRbJD+bA=="
+  "resolved" "https://registry.npmjs.org/react-minimal-pie-chart/-/react-minimal-pie-chart-8.2.0.tgz"
+  "version" "8.2.0"
+
+>>>>>>> e21e41c7b6c7feb5c14709ce1d55989d250f68ac
 "react-transition-group@^4.4.2":
   "integrity" "sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg=="
   "resolved" "https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.2.tgz"
@@ -10004,7 +10055,11 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
+<<<<<<< HEAD
 "react@*", "react@^16.12.0", "react@^16.14.0", "react@^16.6.0", "react@^16.8.0 || ^17.0.0-rc.1", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.14.0", "react@>=16.6.0", "react@>=16.8.0":
+=======
+"react@*", "react@^15.0.0 || >=16.0.0", "react@^16.12.0", "react@^16.14.0", "react@^16.6.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0-rc.1", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.14.0", "react@>=16.6.0", "react@>=16.8.0":
+>>>>>>> e21e41c7b6c7feb5c14709ce1d55989d250f68ac
   "integrity" "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.14.0.tgz"
   "version" "16.14.0"
@@ -10885,6 +10940,11 @@
   "resolved" "https://registry.npmjs.org/sisteransi/-/sisteransi-1.0.4.tgz"
   "version" "1.0.4"
 
+"size-sensor@^1.0.1":
+  "integrity" "sha512-QTy7MnuugCFXIedXRpUSk9gUnyNiaxIdxGfUjr8xxXOqIB3QvBUYP9+b51oCg2C4dnhaeNk/h57TxjbvoJrJUA=="
+  "resolved" "https://registry.npmjs.org/size-sensor/-/size-sensor-1.0.1.tgz"
+  "version" "1.0.1"
+
 "slash@^1.0.0":
   "integrity" "sha1-xB8vbDn8FtHNF61LXYlhFK5HDVU="
   "resolved" "https://registry.npmjs.org/slash/-/slash-1.0.0.tgz"
@@ -11695,6 +11755,11 @@
   "integrity" "sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.10.0.tgz"
   "version" "1.10.0"
+
+"tslib@2.3.0":
+  "integrity" "sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.3.0.tgz"
+  "version" "2.3.0"
 
 "tsutils@^3.17.1":
   "integrity" "sha512-kzeQ5B8H3w60nFY2g8cJIuH7JDpsALXySGtwGJ0p2LSjLgay3NdIpqq5SoOBe46bKDW2iq25irHCr8wjomUS2g=="
@@ -12991,3 +13056,10 @@
     "which-module" "^2.0.0"
     "y18n" "^3.2.1 || ^4.0.0"
     "yargs-parser" "^11.1.1"
+
+"zrender@5.3.1":
+  "integrity" "sha512-7olqIjy0gWfznKr6vgfnGBk7y4UtdMvdwFmK92vVQsQeDPyzkHW1OlrLEKg6GHz1W5ePf0FeN1q2vkl/HFqhXw=="
+  "resolved" "https://registry.npmjs.org/zrender/-/zrender-5.3.1.tgz"
+  "version" "5.3.1"
+  dependencies:
+    "tslib" "2.3.0"

@@ -68,7 +68,7 @@ export default function Account(){
     var account;
     var btns=document.getElementsByClassName("edit_border");
 	var texts = document.getElementsByTagName("textarea");
-    var pieChartData=new Array();
+    var pieChartData = new Array();
  
     let account_now;
 

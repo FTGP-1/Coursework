@@ -125,7 +125,7 @@ export default function Fund(){
                                         <h3 class="my-4">Short Summary</h3>
                                     </div>
                                     <div class="card-text">
-                                        <p class="my-4 mx-4" id = "current_progress">
+                                        <p style={{whiteSpace: 'pre-line'}} class="my-4 mx-4 " id = "current_progress">
                                         </p>
                                     </div>
                                 </div>

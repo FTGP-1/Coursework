@@ -21,7 +21,9 @@ export default class Pie extends React.Component {
     }
 
     componentDidMount() {
-        this.initPieChart()
+        this.timer = setInterval(() => {
+            this.initPieChart()
+        }, 1000) 
     }
 
     componentDidUpdate() {

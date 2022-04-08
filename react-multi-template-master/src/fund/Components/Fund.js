@@ -6,6 +6,7 @@ import './style.css';
 import blockies from "ethereum-blockies";
 import api from '../../api';
 import  {getAllCompany} from '../../investor/Components/Investor.js';
+import Web3 from "web3";
 
 async function getAllCompany_fund()
 {
@@ -25,7 +26,23 @@ function getQueryVariable(variable)
        }
        return(false);
 }
-
+let account_now;
+async function ClickHandler(){
+    let money = document.getElementById("money_amount").value;
+    if (parseFloat(money).toString() == "NaN") {
+        alert("Please enter a number");
+    } else {
+        console.log(money);
+    }
+    window.web3 = new Web3(window.ethereum);
+    var web3 = window.web3;
+    var balance = await web3.eth.getBalance(account_now);
+    if (parseFloat(money) > parseFloat(balance)){
+        alert("You don't have enough money!")
+    }else{
+        
+    }
+}
 
 export default function Fund(){
     var login_status = 0;
@@ -44,7 +61,7 @@ export default function Fund(){
 
 
 
-            let account_now = await window.ethereum.selectedAddress;
+            account_now = await window.ethereum.selectedAddress;
             console.log(account_now)
             if (account_now){
                 login_status = 1;
@@ -121,8 +138,8 @@ export default function Fund(){
                                         <img src={require("./img/money.png")} alt="logo" class="imgsize"/>
                                     </div>
                                 <div class="flex-grow-1 input-group mb-3 mx-2 my-3 col-md-4 inputButton">
-                                    <input type="text" class="form-control" placeholder="Please input the amount" aria-label="amount" aria-describedby="button-addon2"></input>
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buy</button>
+                                    <input type="text" class="form-control" placeholder="Please input the amount(wei)" aria-label="amount" aria-describedby="button-addon2" id="money_amount"></input>
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick={ClickHandler}>Buy</button>
                                 </div>
                                 </div>
                             </div>

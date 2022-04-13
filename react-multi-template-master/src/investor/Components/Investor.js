@@ -165,7 +165,6 @@ export default function Investor(){
                         console.log(data[i].account);
                         Company_array.push(data[i].account);
                     }
-
                 //------ xiaoyi----------
                 transaction_array = json.result;
                 for (var i = 0; i < transaction_array.length; i++){
@@ -188,13 +187,14 @@ export default function Investor(){
                     //address
                     let input_address = v.to;
                     // fee
-                    let input_fee = Web3.utils.fromWei(v.value);
+                    let input_fee = v.value;
                     // share
                     // tab.innerHTML+=`<tr><td>${input_date}</td><td>Companyname</td><td>${input_address}</td><td>${input_fee}</td></tr>`;
                     getCompanyInformation(input_address).then(data => {
-                        var input_name = data.companyName;
-                        tab.innerHTML+=`<tr><td>${input_date}</td><td>${input_name}</td><td>${input_address}</td><td>${input_fee}</td></tr>`;
-
+                        if (input_fee > 0){
+                            var input_name = data.companyName;
+                            tab.innerHTML+=`<tr><td>${input_date}</td><td>${input_name}</td><td>${input_address}</td><td>${input_fee}</td></tr>`;
+                        }
                     }).catch(err => {
                         console.log(err);
                     });

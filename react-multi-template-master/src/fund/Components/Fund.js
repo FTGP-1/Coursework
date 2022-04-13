@@ -40,7 +40,211 @@ async function ClickHandler(){
     if (parseFloat(money) > parseFloat(balance)){
         alert("You don't have enough money!")
     }else{
-        
+        var functionSig = web3.eth.abi.encodeFunctionSignature('price()');
+        var price = await web3.eth.call({
+            to:"0xBDED7eE1a9C9427F955C75a1285B00014D98FbF6",
+            data:functionSig
+        });
+        var price_wei = parseInt(price);
+        console.log(price_wei);
+        var contractAbi = [
+          {
+            "inputs": [
+              {
+                "internalType": "contract Token",
+                "name": "_tokenContract",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "_tokenPrice",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "_min",
+                "type": "uint256"
+              },
+              {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+              }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+          },
+          {
+            "anonymous": false,
+            "inputs": [
+              {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "saleFailed",
+                "type": "bool"
+              }
+            ],
+            "name": "SaleEnded",
+            "type": "event"
+          },
+          {
+            "anonymous": false,
+            "inputs": [
+              {
+                "indexed": false,
+                "internalType": "address",
+                "name": "_buyer",
+                "type": "address"
+              },
+              {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+              }
+            ],
+            "name": "Sell",
+            "type": "event"
+          },
+          {
+            "inputs": [],
+            "name": "minThreshold",
+            "outputs": [
+              {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [],
+            "name": "price",
+            "outputs": [
+              {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [],
+            "name": "saleEnded",
+            "outputs": [
+              {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [],
+            "name": "saleFailed",
+            "outputs": [
+              {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [],
+            "name": "token",
+            "outputs": [
+              {
+                "internalType": "contract Token",
+                "name": "",
+                "type": "address"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [],
+            "name": "tokensSold",
+            "outputs": [
+              {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "uint256",
+                "name": "_numberOfTokens",
+                "type": "uint256"
+              }
+            ],
+            "name": "buyTokens",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+              }
+            ],
+            "name": "refund",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+          },
+          {
+            "inputs": [],
+            "name": "endSale",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+          }
+        ];
+        var contractAddress = "0xBDED7eE1a9C9427F955C75a1285B00014D98FbF6";
+        var contract_test = new web3.eth.Contract(contractAbi, contractAddress);
+        contract_test.methods
+          .buyTokens(parseInt(money))
+          .send({from:account_now,
+                 value:parseInt(money)*price_wei,
+                 gasPrice: '0x3B9ACA00'})
+          .then(res=>{
+              alert("Transaction successfully happen");
+          })
+          .catch(err => {
+              console.log(err);
+          })
+        /*
+        var functionEncode = await contract_test.methods.buyTokens(money).encodeABI();
+        var txSig = web3.eth.abi.encodeFunctionSignature("buyTokens(unit256)");
+        var raw_Tx = {
+            gasPrice: '0x3B9ACA00',
+            gasLimit: '0xC20A',
+            from:account_now,
+            to: contractAddress,
+            value: money * price_wei,
+            data: functionEncode
+        };
+        */
+        //await web3.eth.signTransaction(raw_Tx);
+        //web3.eth.sendTransaction(raw_Tx).then(console.log);
     }
 }
 

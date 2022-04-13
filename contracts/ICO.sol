@@ -32,9 +32,9 @@ contract ICO {
 
     function buyTokens(uint256 _numberOfTokens) public payable {
         require(saleEnded == false);
-        require(msg.value == multiply(_numberOfTokens, price));
+        require(msg.value == multiply(_numberOfTokens, price), 'Please ensure that call value is the product of the number of tokens you wish to purchase, and the price of the token.');
         require(token.balanceOf(address(this)) >= _numberOfTokens);
-        require(token.transfer(msg.sender, _numberOfTokens));
+        require(token.transfer(msg.sender, _numberOfTokens * 10 **18));
 
         tokensSold += _numberOfTokens;
 
@@ -44,7 +44,7 @@ contract ICO {
     function refund(uint256 amount) public payable {
         address payable account = payable(msg.sender);
         require(saleFailed == true, 'Sale has not yet ended. Refund option not available');
-        require(token.refund(account, amount),'You have insufficient tokens for this transaction. Please enter a lower amount.');
+        require(token.refund(account, amount * 10 ** 18),'You have insufficient tokens for this transaction. Please enter a lower amount.');
         account.transfer(multiply(amount,price));
     }
 

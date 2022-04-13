@@ -14,10 +14,10 @@ contract tokenFactory {
     event TokenCreated(address tokenAdd);
     event ICOCreated(address ICOAddress);
 
-    function genToken (string calldata name, string calldata symbol, uint256 supply) public returns (address tokenAdd) {
+    function genToken (string calldata name, string calldata symbol, uint256 supply, address owner) public returns (address tokenAdd) {
         require(msg.sender == admin);
 
-        Token tok = new Token(name, symbol, supply, msg.sender);
+        Token tok = new Token(name, symbol, supply, owner);
 
         emit TokenCreated(address(tok));
         return address(tok);
@@ -26,7 +26,7 @@ contract tokenFactory {
     function genICO (Token _tokenContract, uint256 _tokenPrice, uint256 _min, address owner) public returns (address ICOAddress) {
         require(msg.sender == admin);
 
-        ICO ico = new ICO(_tokenContract, _tokenPrice, _min, owner);
+        ICO ico = new ICO(_tokenContract, _tokenPrice, _min, msg.sender);
 
         emit ICOCreated(address(ico));
         return address(ico);

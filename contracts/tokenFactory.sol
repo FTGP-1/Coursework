@@ -23,7 +23,7 @@ contract tokenFactory {
         return address(tok);
     }
 
-    function genICO (Token _tokenContract, uint256 _tokenPrice, uint256 _min, address owner) public returns (address ICOAddress) {
+    function genICO (Token _tokenContract, uint256 _tokenPrice, uint256 _min) public returns (address ICOAddress) {
         require(msg.sender == admin);
 
         ICO ico = new ICO(_tokenContract, _tokenPrice, _min, msg.sender);

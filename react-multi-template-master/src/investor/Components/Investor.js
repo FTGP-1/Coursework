@@ -167,12 +167,13 @@ export default function Investor(){
             getAllAccount().then(data => {
 
                     for(var i = 0;i < data.length;i++){
-                        console.log(data[i].ICO);
-                        Company_array.push(data[i].ICO.toLowerCase());
+                        console.log(data[i].ico);
+                        Company_array.push(data[i].ico);
                     }
                 //------ xiaoyi----------
                 transaction_array = json.result;
                 console.log(transaction_array);
+                
                 for (var i = 0; i < transaction_array.length; i++){
                     if (Company_array.indexOf(transaction_array[i].to) >= 0){
                         Pay_money_transaction.push(transaction_array[i]);
@@ -198,6 +199,7 @@ export default function Investor(){
                     // share
                     // tab.innerHTML+=`<tr><td>${input_date}</td><td>Companyname</td><td>${input_address}</td><td>${input_fee}</td></tr>`;
                     console.log(input_address);
+
                     getCompanyInformationByICO(input_address).then(data => {
                         
                         if (input_fee > 0){

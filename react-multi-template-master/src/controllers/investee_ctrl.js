@@ -21,6 +21,7 @@ exports.create = (req, res) => {
       tickerName:req.body.tickerName,
       tickerPrice:req.body.tickerPrice,
       account: req.body.account,
+      ico: req.body.ico,
       profile: req.body.profile,
       progress: req.body.progress,
       fulfilled: req.body.fulfilled,
@@ -59,8 +60,8 @@ exports.findAccount = (req, res) => {
 
   
 exports.findICO = (req, res) => {
-  const ICO = req.params.ICO;
-  Investee.findOne({ ICO: ICO })
+  const ico = req.params.ico;
+  Investee.findOne({ ico: ico })
     .then(data => {
       if (!data)
         res.status(404).send({ message: "Not found Investee"});

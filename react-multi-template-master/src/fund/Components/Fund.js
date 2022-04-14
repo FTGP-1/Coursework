@@ -41,8 +41,16 @@ async function ClickHandler(){
         alert("You don't have enough money!")
     }else{
         var functionSig = web3.eth.abi.encodeFunctionSignature('price()');
+
+  
+          var current_ico = await getAllCompany_fund().then(data=>{
+            var current_company = getQueryVariable("company");
+            return data[current_company].ico;
+          })
+
         var price = await web3.eth.call({
-            to:"0x96198Dd8A488b5Ba4FF04f89845558Ee07924D0C",
+
+            to:current_ico,
             data:functionSig
         });
         var price_wei = parseInt(price);
@@ -218,7 +226,7 @@ async function ClickHandler(){
             "type": "function"
           }
         ];
-        var contractAddress = "0x96198Dd8A488b5Ba4FF04f89845558Ee07924D0C";
+        var contractAddress = current_ico;
         var contract_test = new web3.eth.Contract(contractAbi, contractAddress);
         contract_test.methods
           .buyTokens(parseInt(money))

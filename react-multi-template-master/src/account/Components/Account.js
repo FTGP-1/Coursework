@@ -37,15 +37,40 @@ async function getAllAccount(){
 
 
 // var data = {
-//     "companyName": "Hemp eHome",
-//     "legalPerson": "Chang",
-//     "account": "0x883a0457c984f6cac362f0b9e1649782c9eb4506",
-//     "tickerName":"bird_coin",
-//     "tickerPrice":"8",
-//     "profile":"Hemp eHome mixes technological innovation with nature to prevent climate change and provide local communities with long-term development advantages.",
-//     "progress":"This is the first time for Hemp eHome to post",
+//     "companyName": "MailTech",
+//     "legalPerson": "Xiaoyi",
+//     "account": "0xa7a4da3d6d518ddb359298383635b635a02f4906",
+//     "ico":"0x8c71ed910574ee5705c2929b8186a70613a2268b",
+//     "tickerName":"bunny_coin",
+//     "tickerPrice":"10",
+//     "profile":"MailTech, which uses artificial intelligence, allows consumers to send goods, letters, and returns using only their phone - no postage stamps or printed labels necessary. Scoping experiments with the CEO of Royal Mail and other positions. ",
+//     "progress":"This is the first time for MailTech to post",
 //     "fulfilled":"false"
 // };
+
+// var data ={
+//     "companyName": "ConnectProperty",
+//     "legalPerson": "Runhang",
+//     "account": "0x146298d53f1572390a5e7fcf35b314c675b71779",
+//     "ico": "0x96198dd8a488b5ba4ff04f89845558ee07924d0c",
+//     "tickerName": "cat_coin",
+//     "tickerPrice": "15",
+//     "profile": " ConnectProperty combines the best expertise in the business with cutting-edge technology to make the rental experience smarter, smoother, and more equitable for landlords. Landlords discover renters faster, enjoy better, more consistent service, and pay half the amount with our solution.",
+//     "progress": "This is the first time for ConnectProperty to post",
+//     "fulfilled": false,
+// }
+
+var data = {
+    "companyName": "Hemp eHome",
+    "legalPerson": "Chang",
+    "account": "0x883a0457c984f6cac362f0b9e1649782c9eb4506",
+    "ico":"0x8c71ed910574ee5705c2929b8186a70613a2268b",
+    "tickerName":"bird_coin",
+    "tickerPrice":"8",
+    "profile":"Hemp eHome mixes technological innovation with nature to prevent climate change and provide local communities with long-term development advantages.",
+    "progress":"This is the first time for Hemp eHome to post",
+    "fulfilled":"false"
+};
 
 async function postNewRecord(payload){
     var result = await api.createInvestee(payload);
@@ -58,9 +83,6 @@ async function postNewRecord(payload){
 
 // ------xiaoyi----------------
 
-function createPieChart(){
-    
-}
 
 
 export default function Account(){
@@ -72,7 +94,8 @@ export default function Account(){
  
     let account_now;
 
-    window.onload = async function(){
+    window.onload = async function()
+    {
         try{
            
             account_now = await window.ethereum.selectedAddress;
@@ -139,23 +162,29 @@ export default function Account(){
 			})
 		}
 
-        getCompanyInformation(account_now).then(data =>{
-            console.log(data.ICO);
-            var ICO_now =  data.ICO.toLowerCase();
-  
-            //call contract to get the price
-        //     window.web3 = new Web3(window.ethereum);
-        //     var web3 = window.web3;
-        //     var functionSig = web3.eth.abi.encodeFunctionSignature('price()');
-        //     var price = await web3.eth.call({
-        //         to:ICO_now,
-        //         data:functionSig
-        //     });
-        // var price_wei = parseInt(price);
-        // console.log(price_wei);
-
         
-        var price_wei = 300;
+  
+        // call contract to get the price
+
+        window.web3 = new Web3(window.ethereum);
+        var web3 = window.web3;
+        var functionSig = web3.eth.abi.encodeFunctionSignature('price()');
+
+        var ICO_now = await getCompanyInformation(account_now).then(data =>{
+            console.log(data.ico);
+             return data.ico;
+
+        });
+
+        var price = await web3.eth.call({
+            to:ICO_now,
+            data:functionSig
+        });
+        var price_wei = parseInt(price);
+        console.log(price_wei);
+
+
+
         console.log(ICO_now);
         var url = `http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${ICO_now}&startblock=0&endblock=99999999&sort=asc&apikey=CAE3M7SNGI1WGD6ZYBZGRKXVABSUDQTCKA`;
         var request = new XMLHttpRequest();
@@ -208,64 +237,14 @@ export default function Account(){
                     });
                 }
           
-                //------ xiaoyi----------
-                // getAllAccount().then(data => {
-                //     for(var i = 0;i < data.length;i++){
-                //         console.log(data[i].account);
-                //         Company_array.push(data[i].account);
-                //     }
-
-                // //------ xiaoyi----------
-                //     transaction_array = json.result;
-                //     console.log(transaction_array);
-                //     for (var i = 0; i < transaction_array.length; i++){
-                //         if (Company_array.indexOf(transaction_array[i].from) >= 0){
-                //             Get_money_transaction.push(transaction_array[i]);
-                //         }
-                //     }
-                //     let sum = 0;
-                //     for (const v of Get_money_transaction){
-                //         sum = sum + parseFloat(Web3.utils.fromWei(v.value));
-                //     }
-                //     let tab = document.getElementById('tab_1');
-
-                //     for (const v of Get_money_transaction){
-                //         //address
-                //         let input_address = v.from;
-                //         // fee
-                //         let input_fee = Web3.utils.fromWei(v.value);
-                //         // share
-                //         let input_share = (Web3.utils.fromWei(v.value)/sum).toFixed(4)*100;
-                //         getCompanyInformation(input_address).then(data => {
-                //             var input_name = data.companyName;
-                //             var flag = -1;
-                //             for (var i = 0; i<pieChartData.length;i++){
-                //                 if (input_name==pieChartData[i].name){
-                //                     flag = i;
-                //                 }
-                //             }
-                //             if (parseFloat(input_share) > 0){
-                //                 if (flag == -1){
-                //                     pieChartData.push({value:parseFloat(input_fee),name:input_name});
-                //                 } else{
-                //                     pieChartData[flag].value += parseFloat(input_fee);
-                //                 }
-                //             }
-                                
-                //         }).catch(err => {
-                //             console.log(err);
-                //         });
-
-                        // tab.innerHTML+=`<tr><td>${input_date}</td><td>Companyname</td><td>${input_address}</td><td>${input_fee}</td><td>${input_share}</td></tr>`;
-                 //   }
-               // });
+ 
 
                 
 
                 
             }
         }
-    });
+
         console.log(pieChartData);
     }
 
@@ -325,14 +304,22 @@ export default function Account(){
         }
     }
 
+
+
+
     function TableExample(){
+
         getCompanyInformation(account_now).then(data =>{
-            console.log(data.ICO);
-            var ICO_now =  data.ICO.toLowerCase();
+            console.log(data.ico);
+            var ICO_now =  data.ico;
+
+      
+
         var url = `http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${ICO_now}&startblock=0&endblock=99999999&sort=asc&apikey=CAE3M7SNGI1WGD6ZYBZGRKXVABSUDQTCKA`;
         var request = new XMLHttpRequest();
         request.open("get",url);
         request.send(null);
+        
         var price_wei = 300;
 
         request.onload = function(){
@@ -346,9 +333,7 @@ export default function Account(){
                 var transaction_array = new Array();
                 var Get_money_transaction = new Array();
 
-                // var Company_array = ['0xa7a4da3d6d518ddb359298383635b635a02f4906','0x146298d53f1572390a5e7fcf35b314c675b71779'];
-                
-                //------ xiaoyi----------
+
                 //------ xiaoyi----------
                     transaction_array = json.result;
                     console.log(transaction_array);
@@ -392,7 +377,7 @@ export default function Account(){
                 
             }
         }
-    });
+
         return(
         <>
         <Table striped bordered hover>
@@ -411,6 +396,8 @@ export default function Account(){
         
         </>
         );
+
+    });
     }
     function OffCanvasExample({ name, ...props }) {
         const [show, setShow] = useState(false);

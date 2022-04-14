@@ -42,7 +42,7 @@ async function ClickHandler(){
     }else{
         var functionSig = web3.eth.abi.encodeFunctionSignature('price()');
         var price = await web3.eth.call({
-            to:"0xBDED7eE1a9C9427F955C75a1285B00014D98FbF6",
+            to:"0x96198Dd8A488b5Ba4FF04f89845558Ee07924D0C",
             data:functionSig
         });
         var price_wei = parseInt(price);
@@ -218,7 +218,7 @@ async function ClickHandler(){
             "type": "function"
           }
         ];
-        var contractAddress = "0xBDED7eE1a9C9427F955C75a1285B00014D98FbF6";
+        var contractAddress = "0x96198Dd8A488b5Ba4FF04f89845558Ee07924D0C";
         var contract_test = new web3.eth.Contract(contractAbi, contractAddress);
         contract_test.methods
           .buyTokens(parseInt(money))

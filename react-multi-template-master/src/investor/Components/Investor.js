@@ -18,6 +18,11 @@ import Web3 from "web3";
  
  }
 
+async function getCompanyInformationByICO(ICO_now){
+    var result  = await api.getInvesteeByICO(ICO_now);
+    return result.data;
+}
+
 async function getAllCompany()
 {
 
@@ -59,7 +64,7 @@ export default function Investor(){
 
             //----- xiaoyi----------
             account_now = await window.ethereum.selectedAddress;
-            console.log(account_now)
+            console.log(account_now);
             if (account_now){
                 login_status = 1;
                 var icon = blockies.create({ // All options are optional
@@ -162,11 +167,12 @@ export default function Investor(){
             getAllAccount().then(data => {
 
                     for(var i = 0;i < data.length;i++){
-                        console.log(data[i].account);
-                        Company_array.push(data[i].account);
+                        console.log(data[i].ICO);
+                        Company_array.push(data[i].ICO.toLowerCase());
                     }
                 //------ xiaoyi----------
                 transaction_array = json.result;
+                console.log(transaction_array);
                 for (var i = 0; i < transaction_array.length; i++){
                     if (Company_array.indexOf(transaction_array[i].to) >= 0){
                         Pay_money_transaction.push(transaction_array[i]);
@@ -186,12 +192,16 @@ export default function Investor(){
                     let input_date = Y+M+D+h+m+s;
                     //address
                     let input_address = v.to;
+
                     // fee
                     let input_fee = v.value;
                     // share
                     // tab.innerHTML+=`<tr><td>${input_date}</td><td>Companyname</td><td>${input_address}</td><td>${input_fee}</td></tr>`;
-                    getCompanyInformation(input_address).then(data => {
+                    console.log(input_address);
+                    getCompanyInformationByICO(input_address).then(data => {
+                        
                         if (input_fee > 0){
+                            console.log(data);
                             var input_name = data.companyName;
                             tab.innerHTML+=`<tr><td>${input_date}</td><td>${input_name}</td><td>${input_address}</td><td>${input_fee}</td></tr>`;
                         }

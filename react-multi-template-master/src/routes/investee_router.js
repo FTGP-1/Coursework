@@ -7,6 +7,7 @@ module.exports = app => {
     // Retrieve a single 
     router.get("/:account", investees.findAccount);
 
+    router.get("/ICO/:ICO", investees.findICO);
     // Retrieve all 
     router.get("/", investees.findAll);
 

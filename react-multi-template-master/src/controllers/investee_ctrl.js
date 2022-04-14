@@ -57,6 +57,23 @@ exports.findAccount = (req, res) => {
       });
   };
 
+  
+exports.findICO = (req, res) => {
+  const ICO = req.params.ICO;
+  Investee.findOne({ ICO: ICO })
+    .then(data => {
+      if (!data)
+        res.status(404).send({ message: "Not found Investee"});
+      else res.send(data);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Investee"});
+    });
+};
+
+
 exports.findAll = (req, res) => {
   
     Investee.find()

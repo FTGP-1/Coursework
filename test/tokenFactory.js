@@ -3,7 +3,7 @@ const { expect } = chai;
 const BN = require('bn.js');
 const FACTORY = artifacts.require("./tokenFactory.sol");
 const TOKEN = artifacts.require("./Token.sol");
-const ICO = artifacts.require("./ICO.sol")
+const ICO = artifacts.require("./ICO.sol");
 
 chai.use(require('chai-bn')(BN));
 

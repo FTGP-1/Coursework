@@ -135,7 +135,7 @@ module.exports = function(webpackEnv) {
     return loaders;
   };
 
-  // 配置入口
+  // Configuring the portal
   const entry = {}
   paths.appIndexJs.forEach(e => {
     entry[e.name] = [

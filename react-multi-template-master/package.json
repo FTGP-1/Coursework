@@ -70,6 +70,7 @@
     "serialize-javascript": "^2.1.1",
     "style-loader": "1.0.0",
     "terser-webpack-plugin": "2.2.1",
+    "tree-node-cli": "^1.5.2",
     "ts-pnp": "1.1.5",
     "url-loader": "2.3.0",
     "web3": "^1.7.1",

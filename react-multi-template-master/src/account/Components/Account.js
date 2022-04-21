@@ -231,6 +231,7 @@ export default function Account(){
                                 pieChartData[flag].value += parseFloat(input_fee);
                             }
                         }
+                        console.log(pieChartData)
                             
                     }).catch(err => {
                         console.log(err);
@@ -306,11 +307,11 @@ export default function Account(){
 
 
 
-
+    var timer = null;
     function TableExample(){
 
         getCompanyInformation(account_now).then(data =>{
-            console.log(data.ico);
+            //console.log(data.ico);
             var ICO_now =  data.ico;
 
       
@@ -341,8 +342,9 @@ export default function Account(){
                     for (const v of transaction_array){
                         sum = sum + v.value;
                     }
-                    let tab = document.getElementById('tab_1');
-
+                    var $ = require( "jquery" );
+                    let tab = document.getElementById("tab_1");
+                    console.log(tab);
                     for (const v of transaction_array){
                         //date
                         let date = new Date(parseInt(v.timeStamp) * 1000);
@@ -377,7 +379,7 @@ export default function Account(){
                 
             }
         }
-
+    });
         return(
         <>
         <Table striped bordered hover>
@@ -397,7 +399,6 @@ export default function Account(){
         </>
         );
 
-    });
     }
     function OffCanvasExample({ name, ...props }) {
         const [show, setShow] = useState(false);
@@ -484,7 +485,7 @@ export default function Account(){
                     <div class="row g-5">
                         <div class="col-lg-6">                   
                             <div class="pieChart">
-                                <Pie data={pieChartData} id="Pie" />
+                                <Pie data={pieChartData} id="Pie"/>
                             </div>
                             <p class="mt-4" id = 'company_description'> 
                                 company description

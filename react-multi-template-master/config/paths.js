@@ -66,7 +66,7 @@ const resolveModule = (resolveFn, filePath) => {
   return resolveFn(`${filePath}.js`);
 };
 
-// 获取指定路径下的入口文件
+// Get the entry file under the specified path
 function getEntries(globPath) {
   const files = glob.sync(globPath),
     entries = {};

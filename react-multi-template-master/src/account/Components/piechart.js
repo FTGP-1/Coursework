@@ -12,12 +12,16 @@ export default class Pie extends React.Component {
         this.setPieOption = this.setPieOption.bind(this)
         this.initPieChart = this.initPieChart.bind(this)
     }
-
     initPieChart() {
-        const { data } = this.props
-        let myChart = echarts.init(this.refs.pieChart)
-        let options = this.setPieOption(data)
-        myChart.setOption(options)
+        let newPromise = new Promise((resolve)=>{
+            resolve();
+        })
+        newPromise.then(()=>{
+            const { data } = this.props
+            let myChart = echarts.init(this.refs.pieChart);
+            let options = this.setPieOption(data)
+            myChart.setOption(options)
+        })
     }
 
     componentDidMount() {

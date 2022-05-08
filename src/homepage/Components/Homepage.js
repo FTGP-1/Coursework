@@ -74,10 +74,6 @@ export default function Homepage(){
             account = await window.ethereum.request({
                 method: 'eth_requestAccounts',
             });
-            // 获取当前连接的链ID:
-            let chainId = await window.ethereum.request({
-                method: 'eth_chainId'
-            });
             alert(account[0]);
             login_status = 1;
             var icon = blockies.create({ // All options are optional

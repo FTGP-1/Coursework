@@ -37,7 +37,7 @@ async function ClickHandler(){
     window.web3 = new Web3(window.ethereum);
     var web3 = window.web3;
     var balance = await web3.eth.getBalance(account_now);
-    if (parseFloat(money) > parseFloat(balance)){
+    if (parseFloat(money*300) > parseFloat(balance)){
         alert("You don't have enough money!")
     }else{
         var functionSig = web3.eth.abi.encodeFunctionSignature('price()');

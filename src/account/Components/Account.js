@@ -36,7 +36,7 @@ async function getAllAccount(){
 }
 
 
- var data = {
+ var data0 = {
      "companyName": "MailTech",
      "legalPerson": "Xiaoyi",
      "account": "0xa7a4da3d6d518ddb359298383635b635a02f4906",
@@ -48,7 +48,7 @@ async function getAllAccount(){
      "fulfilled":"false"
 };
 
- var data ={
+ var data1 ={
      "companyName": "ConnectProperty",
      "legalPerson": "Runhang",
      "account": "0x146298d53f1572390a5e7fcf35b314c675b71779",
@@ -60,7 +60,7 @@ async function getAllAccount(){
      "fulfilled": false,
 }
 
-var data = {
+var data2 = {
     "companyName": "Hemp eHome",
     "legalPerson": "Theo",
     "account": "0x37a0799562f07378E88d37702216E017cABE7A69",
@@ -100,7 +100,9 @@ export default function Account(){
            
             account_now = await window.ethereum.selectedAddress;
             // console.log(account_now);
-            // postNewRecord(data);
+            postNewRecord(data0);
+	    postNewRecord(data1);
+	    postNewRecord(data2);
 
 
             getCompanyInformation(account_now).then(data => {

@@ -36,34 +36,34 @@ async function getAllAccount(){
 }
 
 
-// var data = {
-//     "companyName": "MailTech",
-//     "legalPerson": "Xiaoyi",
-//     "account": "0xa7a4da3d6d518ddb359298383635b635a02f4906",
-//     "ico":"0x8c71ed910574ee5705c2929b8186a70613a2268b",
-//     "tickerName":"bunny_coin",
-//     "tickerPrice":"10",
-//     "profile":"MailTech, which uses artificial intelligence, allows consumers to send goods, letters, and returns using only their phone - no postage stamps or printed labels necessary. Scoping experiments with the CEO of Royal Mail and other positions. ",
-//     "progress":"This is the first time for MailTech to post",
-//     "fulfilled":"false"
-// };
+ var data = {
+     "companyName": "MailTech",
+     "legalPerson": "Xiaoyi",
+     "account": "0xa7a4da3d6d518ddb359298383635b635a02f4906",
+     "ico":"0x8c71ed910574ee5705c2929b8186a70613a2268b",
+     "tickerName":"bunny_coin",
+     "tickerPrice":"10",
+     "profile":"MailTech, which uses artificial intelligence, allows consumers to send goods, letters, and returns using only their phone - no postage stamps or printed labels necessary. Scoping experiments with the CEO of Royal Mail and other positions. ",
+     "progress":"This is the first time for MailTech to post",
+     "fulfilled":"false"
+};
 
-// var data ={
-//     "companyName": "ConnectProperty",
-//     "legalPerson": "Runhang",
-//     "account": "0x146298d53f1572390a5e7fcf35b314c675b71779",
-//     "ico": "0x96198dd8a488b5ba4ff04f89845558ee07924d0c",
-//     "tickerName": "cat_coin",
-//     "tickerPrice": "15",
-//     "profile": " ConnectProperty combines the best expertise in the business with cutting-edge technology to make the rental experience smarter, smoother, and more equitable for landlords. Landlords discover renters faster, enjoy better, more consistent service, and pay half the amount with our solution.",
-//     "progress": "This is the first time for ConnectProperty to post",
-//     "fulfilled": false,
-// }
+ var data ={
+     "companyName": "ConnectProperty",
+     "legalPerson": "Runhang",
+     "account": "0x146298d53f1572390a5e7fcf35b314c675b71779",
+     "ico": "0x96198dd8a488b5ba4ff04f89845558ee07924d0c",
+     "tickerName": "cat_coin",
+     "tickerPrice": "15",
+     "profile": " ConnectProperty combines the best expertise in the business with cutting-edge technology to make the rental experience smarter, smoother, and more equitable for landlords. Landlords discover renters faster, enjoy better, more consistent service, and pay half the amount with our solution.",
+     "progress": "This is the first time for ConnectProperty to post",
+     "fulfilled": false,
+}
 
 var data = {
     "companyName": "Hemp eHome",
-    "legalPerson": "Chang",
-    "account": "0x883a0457c984f6cac362f0b9e1649782c9eb4506",
+    "legalPerson": "Theo",
+    "account": "0x37a0799562f07378E88d37702216E017cABE7A69",
     "ico":"0x8c71ed910574ee5705c2929b8186a70613a2268b",
     "tickerName":"bird_coin",
     "tickerPrice":"8",
